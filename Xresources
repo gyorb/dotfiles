@@ -1,0 +1,115 @@
+Xcursor.theme: DMZ-White
+
+
+!-- Xft settings -- !
+
+Xft.dpi:        96
+Xft.autohint:   0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting:    1
+Xft.antialias:  1
+Xft.rgba:       rgb
+
+
+!-- urxvt settings -- !
+
+URxvt.font:            xft:DejaVu Sans Mono:pixelsize=12:antialias=true:autohint=true;
+URxvt.boldFont:        xft:DejaVu Sans Mono:pixelsize=12:bold:antialias=true:autohint=true;
+URxvt.italicFont:      xft:DejaVu Sans Mono:pixelsize=12:italic:antialias=true:autohint=true;
+URxvt.boldItalicFont:  xft:DejaVu Sans Mono:pixelsize=12:bold:italic:antialias=true:autohint=true;
+URxvt.internalBorder:      0
+URxvt.externalBorder:      0
+URxvt.scrollBar:           false
+URxvt.perl-ext-common:     matcher
+URxvt.resize-font.smaller: C-Down
+URxvt.resize-font.bigger:  C-Up
+URxvt.url-launcher:        /usr/bin/firefox
+URxvt.underlineURLs:       true
+URxvt.keysym.M-Delete:     perl:matcher:list
+URxvt*depth: 32
+URxvt*buffered: true
+!--  transparency -- !
+!URxvt*foreground: #909090
+!Urxvt*background: rgba:0000/0000/0200/c800
+!URxvt*transparent: true
+!URxvt*fading: 10%
+!URxvt*fadeColor: black
+!URxvt*shading: 10
+
+
+!-- rofi settings -- !
+
+! Separator style (none, dash, solid)
+rofi.separator-style:     none
+rofi.modi: run
+rofi.color-enabled: true
+rofi.color-window: #101010, #fea63c, #101010
+rofi.color-normal: #101010, #e8e8e7, #101010, #fea63c, #101010
+rofi.color-active: #101010, #268bd2, #101010, #268bd2, #101010
+rofi.color-urgent: #101010, #dc322f, #101010, #dc322f, #101010
+rofi.lines: 5
+rofi.font: DejaVu Sans Mono Bold 9
+rofi.hide-scrollbar: true
+
+
+!-- st settings -- !
+
+st.font:            DejaVu Sans Mono:pixelsize=13:bold:antialias=true:autohint=true;
+st.boldFont:        DejaVu Sans Mono:pixelsize=13:bold:antialias=true:autohint=true;
+st.italicFont:      DejaVu Sans Mono:pixelsize=13:italic:antialias=true:autohint=true;
+st.boldItalicFont:  DejaVu Sans Mono:pixelsize=13:bold:italic:antialias=true:autohint=true;
+st.fadeColor: grey
+st.shading: 75
+
+st.termname:        xterm-256color
+st.shell:           /bin/zsh
+st.tabspaces:       4
+st.chscale:         1.0
+st.cwscale:         1.0
+st.bold_font:       1
+
+
+!-- color settings -- !
+
+*cursor: #A1A2A3
+*highlight: #191A1C
+*border: #121314
+*underline: #303030
+
+! special
+*.foreground:   #cccccc
+*.background:   #111111
+*.cursorColor:  #cccccc
+
+! black
+*.color0:       #222222
+*.color8:       #666666
+
+! red
+*.color1:       #e84f4f
+*.color9:       #d23d3d
+
+! green
+*.color2:       #b7ce42
+*.color10:      #bde077
+
+! yellow
+*.color3:       #fea63c
+*.color11:      #ffe863
+
+! blue
+*.color4:       #66a9b9
+*.color12:      #aaccbb
+
+! magenta
+*.color5:       #b7416e
+*.color13:      #e16a98
+
+! cyan
+*.color6:       #6d878d
+*.color14:      #42717b
+
+! white
+*.color7:       #cccccc
+*.color15:      #ffffff
