@@ -1,0 +1,62 @@
+[include]
+  path = ~/.gitconfig.local
+
+[alias]
+  a = add
+  br = branch -vv
+  brr = branch -avv
+  c = commit --verbose
+  ca = commit --amend --verbose
+  co = checkout
+  co-pr = !sh -c 'git fetch upstream pull/$1/head:pr/$1 && git checkout pr/$1' -
+  d = diff
+  dc = diff --cached
+  fo = fetch origin
+  fu = fetch upstream
+  l = log --pretty=format:'%Cred%h%Creset %C(bold)%s %C(yellow)%d%Creset' --abbrev-commit --all --decorate --color
+  ll = log --pretty=format:'%Cred%h%Creset %C(bold)%s%C(yellow)%d%Creset %C(blue)<%an>%Creset%n%n%B' --abbrev-commit --all --decorate --color --date=short
+  lll = log --pretty=format:'%Cred%H%Creset - %s %C(yellow)[%ad]%Creset %C(blue)<%an>%Creset%n %D' --abbrev-commit --all --decorate --color --date=short -p
+  po = push origin
+  pf = push --force-with-lease
+  r = remote -v
+  s = status -sb
+
+[color]
+  ui = auto
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+[color "diff-highlight"]
+  oldNormal = "red bold"
+  oldHighlight = "red bold 52"
+  newNormal = "green bold"
+  newHighlight = "green bold 22"
+
+[core]
+  editor = vim
+
+[push]
+  default = simple
+
+[diff]
+  tool = vimdiff
+
+[difftool]
+  prompt = false
+
+[url "git@gitlab.com:"]
+  insteadOf = https://gitlab.com/
