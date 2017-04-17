@@ -56,7 +56,7 @@ augroup file_types
                           \ autoindent
                           \ fileformat=unix
     autocmd BufRead,BufNewFile *.go
-                          \ autoindent
+                          \ set autoindent
                           \ fileformat=unix
     autocmd FileType make setlocal noexpandtab
 augroup END
