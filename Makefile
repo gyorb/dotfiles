@@ -12,7 +12,6 @@ clean:
 	rm -rf ~/.vimrc
 	rm -rf ~/.gitconfig
 	rm -rf ~/.tmux.conf
-	rm -rf ~/.zshrc
 	rm -rf ~/.aliases
 	rm -rf ~/.Xresources
 	rm -rf ~/.i3
