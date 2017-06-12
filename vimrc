@@ -15,6 +15,7 @@ Plug 'nvie/vim-flake8'
 Plug 'osyo-manga/vim-over'
 Plug 'tpope/vim-commentary'
 Plug 'fatih/vim-go'
+Plug 'dracula/vim'
 
 if has('nvim')
   Plug 'benekastah/neomake'
@@ -334,7 +335,7 @@ set t_Co=256
 "set t_ut=disable
 set background=dark
 
-colorscheme PaperColor
+colorscheme dracula
 
 highlight NonText ctermfg=0
 highlight SpecialKey ctermfg=0

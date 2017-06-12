@@ -136,9 +136,9 @@ mode "resize" {
 
 
 client.background       #ffffff
-client.focused          #000000 #669999 #000000 #669999   #669999
+client.focused          #59667D #282A36 #ffffff #484e50   #5f676a
+client.unfocused        #282A36 #282A36 #F8F8F2 #669999   #669999
 #client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-#client.unfocused        #333333 #222222 #888888 #292d2e   #222222
 #client.urgent           #2f343a #900000 #ffffff #900000   #900000
 #client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
@@ -152,12 +152,12 @@ bar {
    strip_workspace_numbers yes
 
    colors {
-      background #1c1c1c
-      statusline #ecedeea
+      background #282A36
+      statusline #F8F8F2
 
-      focused_workspace  #000000 #669999 #000000
+      focused_workspace  #282A36 #282A36 #F8F8F2
       active_workspace   #708CA2 #5f676a #000000
-      inactive_workspace #222222 #222222 #888888
+      inactive_workspace #282A36 #282A36 #888888
       urgent_workspace   #222222 #222222 #888888
    }
 }
