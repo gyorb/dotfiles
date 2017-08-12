@@ -15,7 +15,6 @@ Plug 'nvie/vim-flake8'
 Plug 'osyo-manga/vim-over'
 Plug 'tpope/vim-commentary'
 Plug 'fatih/vim-go'
-Plug 'dracula/vim'
 
 if has('nvim')
   Plug 'benekastah/neomake'
@@ -23,6 +22,7 @@ endif
 
 " Themes.
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'dracula/vim'
 
 call plug#end()
 
@@ -114,7 +114,7 @@ set backspace=indent,eol,start
 set showcmd
 
 set wildmenu
-set wildmode=full
+set wildmode=longest:full,full
 set wildignore=*.o,*~,*.pyc
 
 set splitright
@@ -173,8 +173,8 @@ map <leader>v :vs<cr>
 map <leader>q :q<cr>
 
 " Fast saving.
-nnoremap <leader>w :w!<cr>
-nnoremap <leader>q :q!<CR>
+nnoremap <leader>w :write<cr>
+nnoremap <leader>q :q<CR>
 
 inoremap } }<Left><c-o>%<c-o>:sleep 500m<CR><c-o>%<c-o>a
 inoremap ] ]<Left><c-o>%<c-o>:sleep 500m<CR><c-o>%<c-o>a
@@ -285,9 +285,9 @@ nmap cn <Plug>GitGutterNextHunk
 nmap cp <Plug>GitGutterPrevHunk
 
 " ultisnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-v>"
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
@@ -303,10 +303,9 @@ map <leader>xb :call VimuxRunCommand("make")<CR>
 map <leader>n :GFiles<cr>
 map <leader>b :Buffers<cr>
 map <leader>g :Ag<cr>
-map <leader><leader> :Commands<cr>
 
-" ctrlp
-map <leader>m :CtrlPMRU<cr>
+map <leader><leader> :CtrlPMRU<cr>
+
 
 let g:ctrlp_working_path_mode = 'arw'
 " Search from current directory instead of project root
