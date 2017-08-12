@@ -18,6 +18,24 @@ alias tnew='tmux new -s'
 
 alias mc='mc -b'
 
+#git
+alias ga='git a'
+alias gbr='git br'
+alias gc='git c'
+alias gca='git ca'
+alias gco='git co'
+alias gd='git d'
+alias gdc='git dc'
+alias gfo='git fo'
+alias gfu='git fu'
+alias gl='git l'
+alias gll='git ll'
+alias glll='git lll'
+alias gpf='git pf'
+alias grem='git rem'
+alias grs='git rs'
+alias gs='git s'
+
 # fkill - kill process
 fkill() {
   pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
