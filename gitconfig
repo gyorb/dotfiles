@@ -63,3 +63,10 @@
 
 [credential]
   helper = cache
+
+[merge]
+  tool = vimdiff
+  conflictstyle = diff3
+
+[mergetool]
+  prompt = false
