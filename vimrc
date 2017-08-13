@@ -23,6 +23,7 @@ endif
 " Themes.
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'dracula/vim'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
@@ -334,7 +335,8 @@ set t_Co=256
 "set t_ut=disable
 set background=dark
 
-colorscheme dracula
+colorscheme gruvbox
+let g:gruvbox_contrast_dark='hard'
 
 highlight NonText ctermfg=0
 highlight SpecialKey ctermfg=0
@@ -346,7 +348,7 @@ highlight SpecialKey ctermfg=0
 hi StatusLine   ctermfg=none  guifg=#ffffff ctermbg=none guibg=#4e4e4e cterm=bold gui=bold
 hi StatusLineNC ctermfg=none  guifg=#b2b2b2 ctermbg=none guibg=#3a3a3a cterm=none gui=none
 hi VertSplit    ctermfg=none  guifg=#3a3a3a ctermbg=none guibg=#3a3a3a cterm=none gui=none
-hi CursorLineNR cterm=bold ctermbg=none ctermfg=white
+hi CursorLineNR cterm=bold ctermbg=none
 hi FoldColumn ctermbg=none ctermfg=none
 
 set fillchars=vert:\|
@@ -355,7 +357,12 @@ set fillchars=vert:\|
 hi Normal ctermbg=none
 hi NonText ctermbg=none
 hi LineNr ctermbg=none
-hi SignColumn ctermbg=none
+hi clear SignColumn
+
+hi GitGutterAdd ctermfg=green
+hi GitGutterChange ctermfg=yellow
+hi GitGutterDelete ctermfg=red
+hi GitGutterChangeDelete ctermfg=red
 
 " Load local config.
 try
