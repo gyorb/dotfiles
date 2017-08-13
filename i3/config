@@ -6,6 +6,8 @@ set $mod Mod1
 font xft:DejaVu Sans Mono Bold 9
 new_window pixel 2
 hide_edge_borders vertical
+set $main_screen "HDMI2"
+set $secondary_screen "***"
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -135,9 +137,9 @@ mode "resize" {
 }
 
 
-client.background       #ffffff
-client.focused          #59667D #282A36 #ffffff #484e50   #5f676a
-client.unfocused        #282A36 #282A36 #F8F8F2 #669999   #669999
+client.background       #202020
+client.focused          #c0c0c0 #303030 #c0c0c0 #484e50 #c0c0c0
+client.unfocused        #202020 #202020 #c0c0c0 #669999   #202020
 #client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
 #client.urgent           #2f343a #900000 #ffffff #900000   #900000
 #client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
@@ -146,21 +148,39 @@ client.unfocused        #282A36 #282A36 #F8F8F2 #669999   #669999
 bar {
    position top
    status_command i3status -c ~/.i3/i3status.conf
-   tray_output LVDS-1
+   tray_output $main_screen
    font xft: DejaVu Sans Mono Bold 9
-   separator_symbol "  "
+   separator_symbol " | "
    strip_workspace_numbers yes
 
    colors {
-      background #282A36
+      background #202020
       statusline #F8F8F2
 
-      focused_workspace  #282A36 #282A36 #F8F8F2
+      focused_workspace  #808080 #202020 #f2f2f2
       active_workspace   #708CA2 #5f676a #000000
-      inactive_workspace #282A36 #282A36 #888888
+      inactive_workspace #202020 #202020 #888888
       urgent_workspace   #222222 #222222 #888888
    }
 }
+
+# Audio controls
+bindsym Mod4+3 exec amixer -q set Master 5%- unmute
+bindsym Mod4+4 exec amixer -q set Master 5%+ unmute
+
+## External displays
+# Set the shortcuts and what they do
+set $mode_display Ext Screen (h) HDMI ON, (y) HDMI OFF
+mode "$mode_display" {
+    bindsym h exec --no-startup-id xrandr --output $secondary_screen --auto --right-of $main_screen, mode "default"
+    bindsym y exec --no-startup-id xrandr --output $secondary_screen --auto --off, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym Mod0+x mode "$mode_display"
+
 
 bindsym $mod+Ctrl+l exec $Locker
 
