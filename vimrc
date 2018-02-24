@@ -22,7 +22,7 @@ endif
 
 call plug#end()
 
-syntax enable
+syntax off
 filetype on
 filetype indent on
 filetype plugin on
@@ -159,10 +159,10 @@ nmap <leader>8 8gt
 nmap <leader>9 9gt
 
 " Moving between splits.
-map <leader>j <C-W>j
-map <leader>k <C-W>k
-map <leader>l <C-W>l
-map <leader>h <C-W>h
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 map <leader>o :Ex<cr>
 map <leader>v :vs<cr>
