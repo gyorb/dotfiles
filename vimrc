@@ -241,7 +241,7 @@ nnoremap <silent> gg :call ToggleMovement('gg', 'G')<CR>
 
 if has('nvim')
   " neomake
-  let g:neomake_python_enabled_makers = ['pep8']
+  let g:neomake_python_enabled_makers = ['pycodestyle']
   autocmd BufWritePost *.py execute 'Neomake'
 
   " neovim terminal
