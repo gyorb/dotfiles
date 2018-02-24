@@ -20,11 +20,6 @@ if has('nvim')
   Plug 'benekastah/neomake'
 endif
 
-" Themes.
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'dracula/vim'
-Plug 'morhetz/gruvbox'
-
 call plug#end()
 
 syntax enable
@@ -334,9 +329,6 @@ set t_Co=256
 
 "set t_ut=disable
 set background=dark
-
-colorscheme gruvbox
-let g:gruvbox_contrast_dark='hard'
 
 highlight NonText ctermfg=0
 highlight SpecialKey ctermfg=0
