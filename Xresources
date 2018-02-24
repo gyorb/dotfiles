@@ -79,7 +79,7 @@ st.bold_font:       1
 
 ! Modified Dracula Xresources palette
 *.foreground:  #F8F8F2
-*.background:  #101010
+*.background:  #080808
 *.cursorColor: #F8F8F2
 *.color0:      #000000
 *.color8:      #4D4D4D
