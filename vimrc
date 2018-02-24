@@ -284,6 +284,11 @@ endif
 
 " ================== Plugin Configs =====================
 
+" vim-go
+let g:go_auto_type_info = 1
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+
 " vim-autoformat
 " autocmd BufWrite * :Autoformat
 noremap <F3> :Autoformat<CR>
