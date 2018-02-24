@@ -138,13 +138,18 @@ mode "resize" {
 }
 
 
-client.background       #202020
-client.focused          #c0c0c0 #303030 #c0c0c0 #484e50 #c0c0c0
-client.unfocused        #202020 #202020 #c0c0c0 #669999   #202020
-#client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-#client.urgent           #2f343a #900000 #ffffff #900000   #900000
-#client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+set $bg_color "#29292E"
+set $main_color "#FF8700"
+set $text_color "#E4E4E4"
 
+client.background $bg_color
+
+#colorclass             border      bg        text        indicator child_border
+client.focused          $main_color $bg_color #FFFFFF     #FFFFFF   $main_color
+client.unfocused        $bg_color   $bg_color $text_color #669999   $bg_color
+#client.focused_inactive #333333 #5f676A #ffffff #484E50   #5f676A
+#client.urgent           #2f343A #900000 #ffffff #900000   #900000
+#client.placeholder      #000000 #0c0c0C #ffffff #000000   #0C0C0C
 
 bar {
    position top
@@ -155,13 +160,14 @@ bar {
    strip_workspace_numbers yes
 
    colors {
-      background #202020
-      statusline #F8F8F2
+      background $bg_color
+      statusline $text_color
 
-      focused_workspace  #808080 #202020 #f2f2f2
-      active_workspace   #708CA2 #5f676a #000000
-      inactive_workspace #202020 #202020 #888888
-      urgent_workspace   #222222 #222222 #888888
+      # colorclass       border      bg        text
+      focused_workspace  $bg_color   $bg_color $main_color
+      active_workspace   $bg_color   #5f676A   #000000
+      inactive_workspace $bg_color   $bg_color #888888
+      urgent_workspace   $main_color #000000   #FFFFFF
    }
 }
 
