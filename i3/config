@@ -13,6 +13,9 @@ hide_edge_borders smart
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# focus not to follow mouse
+focus_follows_mouse no
+
 # start a terminal
 bindsym $mod+Return exec --no-startup-id $term
 
