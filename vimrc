@@ -85,13 +85,20 @@ vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
-"set clipboard+=unnamed,unnamedplus "system clipboard
+" Clipboard settings
+set clipboard+=unnamed,unnamedplus "system clipboard
 
-" Copy.
+" Copy
 map <leader>y "+y
 map <leader>Y "+Y
 map <leader>P "+P
 map <leader>p "+p
+
+" Paste
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 " Turn off swap files.
 set noswapfile
