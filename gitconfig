@@ -12,14 +12,15 @@
   dc = diff --cached
   fo = fetch origin
   fu = fetch upstream
-  l = log --pretty=format:'%Cred%h%Creset %C(bold)%s %C(yellow)%d%Creset' --abbrev-commit --all --decorate --color
-  ll = log --pretty=format:'%Cred%h%Creset %C(bold)%s%C(yellow)%d%Creset %C(blue)<%an>%Creset%n%n%B' --abbrev-commit --all --decorate --color --date=short
-  lll = log --pretty=format:'%Cred%H%Creset - %s %C(yellow)[%ad]%Creset %C(blue)<%an>%Creset%n %D' --abbrev-commit --all --decorate --color --date=short -p
+  l = log --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %C(bold)%s%Creset %Cgreen[%an]%Creset' --abbrev-commit --all --decorate --color
+  ll = log --pretty=format:'%Cred%h%Creset %C(bold)%s%C(yellow)%d%Creset %C(green)[%an]%Creset%n%n%B' --abbrev-commit --all --decorate --color --date=short
+  lll = log --pretty=format:'%Cred%H%Creset %s %C(yellow)[%ad]%Creset %C(green)[%an]%Creset%n %D' --abbrev-commit --all --decorate --color --date=short -p
   po = push origin
   pf = push --force-with-lease
   rs = reset HEAD
   rem = remote -v
   s = status -sb
+  rebase = rebase -i
 
 [color]
   ui = auto
@@ -54,6 +55,8 @@
 
 [diff]
   tool = vimdiff
+  mnemonicprefix = true
+  renames = copies
 
 [difftool]
   prompt = false
@@ -70,3 +73,6 @@
 
 [mergetool]
   prompt = false
+
+[gc]
+  auto = 0
