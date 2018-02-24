@@ -55,9 +55,9 @@ rofi.hide-scrollbar: true
 
 !-- st settings -- !
 
-st.font:            DejaVu Sans Mono:pixelsize=13:bold:antialias=true:autohint=true;
-st.boldFont:        DejaVu Sans Mono:pixelsize=13:bold:antialias=true:autohint=true;
-st.italicFont:      DejaVu Sans Mono:pixelsize=13:italic:antialias=true:autohint=true;
+st.font:            DejaVu Sans Mono:pixelsize=13:antialias=true:autohint=true;
+st.boldFont:        DejaVu Sans Mono:pixelsize=13:antialias=true:autohint=true;
+st.italicFont:      DejaVu Sans Mono:pixelsize=13:talic:antialias=true:autohint=true;
 st.boldItalicFont:  DejaVu Sans Mono:pixelsize=13:bold:italic:antialias=true:autohint=true;
 st.fadeColor: grey
 st.shading: 75
