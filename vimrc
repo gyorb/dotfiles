@@ -6,16 +6,35 @@ Plug 'tacahiroy/ctrlp-funky'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'airblade/vim-gitgutter'
 Plug 'leshill/vim-json'
-Plug 'solarnz/thrift.vim'
 Plug 'benmills/vimux'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'Chiel92/vim-autoformat'
-Plug 'nvie/vim-flake8'
 Plug 'osyo-manga/vim-over'
 Plug 'tpope/vim-commentary'
-Plug 'fatih/vim-go'
 Plug 'shougo/neocomplete.vim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'sheerun/vim-polyglot'
+Plug 'solarnz/thrift.vim'
+
+" fzf
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" html
+Plug 'hail2u/vim-css3-syntax'
+Plug 'gorodinskiy/vim-coloresque'
+Plug 'tpope/vim-haml'
+Plug 'mattn/emmet-vim'
+
+" javascript
+Plug 'jelera/vim-javascript-syntax'
+
+" python
+Plug 'nvie/vim-flake8'
+Plug 'davidhalter/jedi-vim'
+Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
+
+" go
+Plug 'fatih/vim-go'
 
 if has('nvim')
   Plug 'benekastah/neomake'
@@ -23,7 +42,14 @@ endif
 
 call plug#end()
 
-syntax off
+syntax on
+" Syntax highlight
+" Default highlight is better than polyglot
+let g:polyglot_disabled = ['python']
+let python_highlight_all = 1
+
+set ttyfast
+
 filetype on
 filetype indent on
 filetype plugin on
@@ -37,6 +63,19 @@ set autoindent
 
 " Set line-spacing to minimum.
 set linespace=0
+
+" vim update time for faster gitgutter update
+set updatetime=500
+
+set fileformats=unix,dos,mac
+
+" jedi
+let g:jedi#use_splits_not_buffers = "right"
+let g:jedi#goto_definitions_command = "gd"
+let g:jedi#documentation_command = "gh"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
 
 augroup file_types
     autocmd!
@@ -52,12 +91,24 @@ augroup file_types
                           \ shiftwidth=4
                           \ expandtab
                           \ autoindent
-                          \ fileformat=unix
+                          \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
     autocmd BufRead,BufNewFile *.go
                           \ set autoindent
-                          \ fileformat=unix
     autocmd FileType make setlocal noexpandtab
 augroup END
+
+if exists('$SHELL')
+    set shell=$SHELL
+else
+    set shell=/bin/sh
+endif
+
+set title
+set titleold="terminal"
+set titlestring=%F
+
+"" Opens an edit command with the path of the currently edited file filled in
+noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 " Display tabs and trailing spaces visually.
 set list listchars=tab:>\ ,trail:·,extends:>,precedes:<,nbsp:~
@@ -112,7 +163,9 @@ vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
 " Clipboard settings
-set clipboard+=unnamed,unnamedplus "system clipboard
+if has('unnamedplus')
+  set clipboard=unnamed,unnamedplus "system clipboard
+endif
 
 " Copy
 map <leader>y "+y
@@ -143,8 +196,8 @@ set backspace=indent,eol,start
 set showcmd
 
 set wildmenu
-set wildmode=longest:full,full
-set wildignore=*.o,*~,*.pyc
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
 
 set splitright
 set splitbelow
@@ -285,7 +338,7 @@ endif
 " ================== Plugin Configs =====================
 
 " vim-go
-let g:go_auto_type_info = 1
+"let g:go_auto_type_info = 1
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 
@@ -311,6 +364,8 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR><CR>
 " gitgutter
 " unmap gitgutter maps (moving between splits)
 let g:gitgutter_map_keys = 0
+" update markers on file open
+let g:gitgutter_terminal_reports_focus=0
 
 let g:gitgutter_max_signs = 500  " default value
 "let g:gitgutter_highlight_lines = 1
@@ -337,9 +392,10 @@ map <leader>xb :call VimuxRunCommand("make")<CR>
 map <leader>n :GFiles<cr>
 map <leader>b :Buffers<cr>
 map <leader>g :Ag<cr>
+map <leader>m :History<cr>
 
-map <leader><leader> :CtrlPMRU<cr>
-
+" Clean search (highlight)
+nnoremap <silent> <leader><space> :noh<cr>
 
 let g:ctrlp_working_path_mode = 'arw'
 " Search from current directory instead of project root
