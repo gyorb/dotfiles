@@ -142,7 +142,7 @@ mode "resize" {
 
 
 set $bg_color "#29292E"
-set $main_color "#FF8700"
+set $main_color "#5fafff"
 set $text_color "#E4E4E4"
 
 client.background $bg_color
