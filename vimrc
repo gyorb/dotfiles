@@ -431,8 +431,8 @@ highlight SpecialKey ctermfg=0
 "highlight ColorColumn ctermbg=232
 "let &colorcolumn="80,".join(range(120,999),",")
 
-hi StatusLine   ctermfg=none  guifg=#ffffff ctermbg=none guibg=#4e4e4e cterm=bold gui=bold
-hi StatusLineNC ctermfg=none  guifg=#b2b2b2 ctermbg=none guibg=#3a3a3a cterm=none gui=none
+hi StatusLine   ctermfg=none  guifg=#ffffff ctermbg=234 guibg=#4e4e4e cterm=bold gui=bold
+hi StatusLineNC ctermfg=250  guifg=#b2b2b2 ctermbg=none guibg=#3a3a3a cterm=none gui=none
 hi VertSplit    ctermfg=none  guifg=#3a3a3a ctermbg=none guibg=#3a3a3a cterm=none gui=none
 hi CursorLineNR cterm=bold ctermbg=none
 hi FoldColumn ctermbg=none ctermfg=none
