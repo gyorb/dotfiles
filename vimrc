@@ -42,7 +42,7 @@ endif
 
 call plug#end()
 
-syntax on
+syntax off
 " Syntax highlight
 " Default highlight is better than polyglot
 let g:polyglot_disabled = ['python']
