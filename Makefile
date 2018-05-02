@@ -6,6 +6,7 @@ all:
 	ln -s $(CURDIR)/aliases ~/.aliases
 	ln -s $(CURDIR)/Xresources ~/.Xresources
 	ln -s $(CURDIR)/i3 ~/.i3
+	ln -s $(CURDIR)/dunstrc ~/.config/dunst/dunstrc
 
 
 clean:
@@ -15,3 +16,4 @@ clean:
 	rm -rf ~/.aliases
 	rm -rf ~/.Xresources
 	rm -rf ~/.i3
+	rm -rf ~/.config/dunst/dunstrc

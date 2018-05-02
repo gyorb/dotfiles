@@ -209,5 +209,6 @@ bindsym $mod+Ctrl+l exec $Locker
 exec_always --no-startup-id feh --bg-fill ~/wallpaper.jpg
 exec_always xrdb ~/.Xresources
 exec --no-startup-id $term -n scratchpad_term
+exec dunst
 
 bindsym $mod+b bar mode toggle
