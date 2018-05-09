@@ -40,9 +40,14 @@ if has('nvim')
   Plug 'benekastah/neomake'
 endif
 
+Plug 'jakwings/vim-colors'
+
 call plug#end()
 
 syntax off
+
+colorscheme moody
+
 " Syntax highlight
 " Default highlight is better than polyglot
 let g:polyglot_disabled = ['python']
