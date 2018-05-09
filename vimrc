@@ -294,7 +294,7 @@ map <leader>s? z=
 set laststatus=2
 
 " Format the statusline.
-set statusline=[%{fugitive#head()}]%m%r%h%w\ %f\ %=%(%{&ff}\ %{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\ %y%)%([%l/%L,%v]\ %)
+set statusline=%m%r%h%w\ %f\ %=%(%{&ff}\ %{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\ %)%(%l/%L,%v\ %)
 
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 match ExtraWhitespace /\s\+$/
