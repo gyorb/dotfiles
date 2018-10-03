@@ -1,5 +1,6 @@
 
 all:
+	ln -s $(CURDIR)/zshrc ~/.zshrc
 	ln -s $(CURDIR)/env ~/.env
 	ln -s $(CURDIR)/vimrc ~/.vimrc
 	ln -s $(CURDIR)/gitconfig ~/.gitconfig
@@ -11,6 +12,7 @@ all:
 
 
 clean:
+	rm -rf ~/.zshrc
 	rm -rf ~/.env
 	rm -rf ~/.vimrc
 	rm -rf ~/.gitconfig
