@@ -1,5 +1,6 @@
 
 all:
+	ln -s $(CURDIR)/env ~/.env
 	ln -s $(CURDIR)/vimrc ~/.vimrc
 	ln -s $(CURDIR)/gitconfig ~/.gitconfig
 	ln -s $(CURDIR)/tmux.conf ~/.tmux.conf
@@ -10,6 +11,7 @@ all:
 
 
 clean:
+	rm -rf ~/.env
 	rm -rf ~/.vimrc
 	rm -rf ~/.gitconfig
 	rm -rf ~/.tmux.conf
