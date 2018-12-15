@@ -7,7 +7,7 @@ all:
 	ln -s $(CURDIR)/tmux.conf ~/.tmux.conf
 	ln -s $(CURDIR)/aliases ~/.aliases
 	ln -s $(CURDIR)/Xresources ~/.Xresources
-	ln -s $(CURDIR)/i3 ~/.i3
+	ln -s $(CURDIR)/i3 ~/.config/i3
 	ln -s $(CURDIR)/dunstrc ~/.config/dunst/dunstrc
 
 
