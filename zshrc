@@ -23,7 +23,7 @@ zstyle ':vcs_info:*' actionformats "%{$fg[yellow]%}%b%{$reset_color%}[%a]%u%c%{$
 
 # Set up the prompt (with git branch name)
 setopt PROMPT_SUBST
-PS1='%{$fg[green]%}%U%M%u %B%1~%b%{$reset_color%} ${vcs_info_msg_0_}'
+PS1='%B%1~%b%{$reset_color%} ${vcs_info_msg_0_}'
 
 # History
 
