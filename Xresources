@@ -1,8 +1,6 @@
 Xcursor.theme: DMZ-White
 
-
 !-- Xft settings -- !
-
 Xft.dpi:        96
 Xft.autohint:   0
 Xft.lcdfilter:  lcddefault
@@ -11,35 +9,7 @@ Xft.hinting:    1
 Xft.antialias:  1
 Xft.rgba:       rgb
 
-
-!-- urxvt settings -- !
-
-URxvt.font:            xft:DejaVu Sans Mono:pixelsize=12:antialias=true:autohint=true;
-URxvt.boldFont:        xft:DejaVu Sans Mono:pixelsize=12:bold:antialias=true:autohint=true;
-URxvt.italicFont:      xft:DejaVu Sans Mono:pixelsize=12:italic:antialias=true:autohint=true;
-URxvt.boldItalicFont:  xft:DejaVu Sans Mono:pixelsize=12:bold:italic:antialias=true:autohint=true;
-URxvt.internalBorder:      0
-URxvt.externalBorder:      0
-URxvt.scrollBar:           false
-URxvt.perl-ext-common:     matcher
-URxvt.resize-font.smaller: C-Down
-URxvt.resize-font.bigger:  C-Up
-URxvt.url-launcher:        /usr/bin/firefox
-URxvt.underlineURLs:       true
-URxvt.keysym.M-Delete:     perl:matcher:list
-URxvt*depth: 32
-URxvt*buffered: true
-!--  transparency -- !
-!URxvt*foreground: #909090
-!Urxvt*background: rgba:0000/0000/0200/c800
-!URxvt*transparent: true
-!URxvt*fading: 10%
-!URxvt*fadeColor: black
-!URxvt*shading: 10
-
-
 !-- rofi settings -- !
-
 ! Separator style (none, dash, solid)
 rofi.separator-style:     none
 rofi.modi: run
@@ -51,49 +21,3 @@ rofi.color-urgent: #1c1c1c, #F8F8F2, #1c1c1c, #dc322f, #1c1c1c
 rofi.lines: 5
 rofi.font: DejaVu Sans Mono Bold 9
 rofi.hide-scrollbar: true
-
-
-!-- st settings -- !
-
-st.font:            DejaVu Sans Mono:pixelsize=13:antialias=true:autohint=true;
-st.boldFont:        DejaVu Sans Mono:pixelsize=13:antialias=true:autohint=true;
-st.italicFont:      DejaVu Sans Mono:pixelsize=13:talic:antialias=true:autohint=true;
-st.boldItalicFont:  DejaVu Sans Mono:pixelsize=13:bold:italic:antialias=true:autohint=true;
-st.fadeColor: grey
-st.shading: 75
-
-st.termname:        xterm-256color
-st.shell:           /bin/zsh
-st.tabspaces:       4
-st.chscale:         1.0
-st.cwscale:         1.0
-st.bold_font:       1
-
-
-!-- color settings -- !
-
-*cursor: #A1A2A3
-*highlight: #191A1C
-*border: #121314
-*underline: #303030
-
-! Modified Dracula Xresources palette
-*.foreground:  #eeeeee
-*.background:  #1c1c1c
-*.cursorColor: #eeeeee
-*.color0:      #000000
-*.color8:      #4D4D4D
-*.color1:      #FF5555
-*.color9:      #FF6E67
-*.color2:      #50FA7B
-*.color10:     #5AF78E
-*.color3:      #F1FA8C
-*.color11:     #F4F99D
-*.color4:      #BD93F9
-*.color12:     #CAA9FA
-*.color5:      #FF79C6
-*.color13:     #FF92D0
-*.color6:      #8BE9FD
-*.color14:     #9AEDFE
-*.color7:      #BFBFBF
-*.color15:     #E6E6E6
