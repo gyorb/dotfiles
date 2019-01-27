@@ -1,0 +1,113 @@
+{
+    "window.zoomLevel": 0,
+    "window.titleBarStyle": "custom",
+    "workbench.startupEditor": "none",
+    "editor.fontSize": 12,
+    "editor.fontFamily": "'Fira Code', 'Courier New', monospace, 'Droid Sans Fallback'",
+    "editor.fontLigatures": true,
+    "editor.minimap.enabled": false,
+    "editor.cursorBlinking": "solid",
+    "editor.cursorStyle": "line",
+    "editor.renderIndentGuides": false,
+    "editor.detectIndentation": true,
+    "editor.renderControlCharacters": true,
+    "editor.renderWhitespace": "all",
+    "editor.insertSpaces": true,
+    "editor.snippetSuggestions": "top",
+    "editor.tabCompletion": "on",
+
+    "scm.alwaysShowProviders": true,
+
+    "workbench.statusBar.feedback.visible": false,
+    "workbench.editor.showTabs": false,
+    "workbench.sideBar.location": "right",
+
+    "terminal.integrated.shell.linux": "/bin/zsh",
+    "terminal.integrated.fontSize" : 12,
+    "terminal.integrated.scrollback" : 10000,
+
+    "update.channel": "none",
+    "update.enableWindowsBackgroundUpdates": false,
+
+    "extensions.ignoreRecommendations": true,
+    "extensions.showRecommendationsOnlyOnDemand": false,
+
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+
+    "vim.useSystemClipboard": true,
+    "vim.leader": " ",
+    "vim.hlsearch": true,
+    "vim.visualstar": true,
+    "vim.incsearch": true,
+    "vim.history": 1000,
+    "vim.statusBarColorControl": false,
+
+    "vim.cursorStylePerMode.insert": "line",
+    "vim.cursorStylePerMode.visual": "",
+    "vim.cursorStylePerMode.normal": "line",
+
+    "vim.visualModeKeyBindingsNonRecursive": [
+            {
+                "before": [
+                    ">"
+                ],
+                "commands": [
+                    "editor.action.indentLines"
+                ]
+            },
+            {
+                "before": [
+                    "<"
+                ],
+                "commands": [
+                    "editor.action.outdentLines"
+                ]
+            },
+        ],
+
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["j"],
+            "after": ["g", "j"]
+        },
+        {
+            "before": ["leader", "h"],
+            "after": ["<C-w>", "h"]
+        },
+        {
+            "before": ["leader", "q"],
+            "commands": [
+                ":q",
+            ]
+        },
+        {
+            "before": ["leader", "l"],
+            "after": ["<C-w>", "l"]
+        },
+        {
+            "before": ["leader", "n"],
+            "after": [],
+            "commands": [
+                {
+                    "command": "workbench.action.quickOpen",
+                    "args": []
+                }
+            ]
+        },
+    ],
+
+
+    "python.pythonPath": "${workspaceRoot}/env/bin/python",
+    "python.linting.pydocstyleEnabled": true,
+
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#212121",
+        "statusBar.noFolderBackground": "#212121",
+        "statusBar.debuggingBackground": "#212121"
+    },
+
+    "breadcrumbs.enabled": true,
+
+    "dart.allowAnalytics": false,
+}

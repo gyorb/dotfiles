@@ -1,7 +1,7 @@
 
 config=$(HOME)/.config
 
-all: dunst
+all: dunst vscode
 	ln -s $(CURDIR)/zshrc ~/.zshrc
 	ln -s $(CURDIR)/env ~/.env
 	ln -s $(CURDIR)/vimrc ~/.vimrc
@@ -15,6 +15,10 @@ dunst:
 	mkdir -p $(config)/dunst/
 	ln -s $(CURDIR)/dunstrc $(config)/dunst/dunstrc
 
+vscode:
+	mkdir -p $(config)/Code/User/
+	ln -s $(CURDIR)/vscode-settings.json $(config)/Code/User/settings.json
+
 clean:
 	rm -rf ~/.zshrc
 	rm -rf ~/.env
@@ -25,3 +29,4 @@ clean:
 	rm -rf ~/.Xresources
 	rm -rf $(config)/i3
 	rm -rf $(config)/dunst/dunstrc
+	rm -rf $(config)/Code/User/settings.json
