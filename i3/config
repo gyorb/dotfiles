@@ -10,6 +10,8 @@ font xft:DejaVu Sans Mono Bold 9
 new_window pixel 2
 hide_edge_borders smart
 
+title_align center
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -48,11 +50,7 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
-bindsym $mod+o split h
-
-# split in vertical orientation
-bindsym $mod+p split v
+bindsym $mod+w split toggle
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
@@ -63,7 +61,7 @@ bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+f floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
