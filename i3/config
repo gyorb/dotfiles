@@ -154,7 +154,7 @@ client.placeholder      #000000 #0c0c0C    $text  #000000   #0C0C0C
 
 bar {
    position top
-   status_command i3status -c ~/.i3/i3status.conf
+   status_command i3status -c ~/.config/i3/i3status.conf
    tray_output $main_screen
    tray_padding 4
    font xft: DejaVu Sans Mono Bold 9
