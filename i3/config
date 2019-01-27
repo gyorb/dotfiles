@@ -156,8 +156,9 @@ bar {
    position top
    status_command i3status -c ~/.i3/i3status.conf
    tray_output $main_screen
+   tray_padding 4
    font xft: DejaVu Sans Mono Bold 9
-   separator_symbol " | "
+   separator_symbol " "
    strip_workspace_numbers yes
 
    colors {
