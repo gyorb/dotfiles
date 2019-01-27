@@ -140,19 +140,19 @@ mode "resize" {
   bindsym Escape mode "default"
 }
 
+set $bg "#212121"
+set $main "#adcbe3"
+set $text "#eeeeee"
+set $urgent "#af5f5f"
 
-set $bg_color "#1c1c1c"
-set $main_color "#eeeeee"
-set $text_color "#eeeeee"
+client.background $bg
 
-client.background $bg_color
-
-#colorclass             border      bg        text        indicator child_border
-client.focused          $main_color $bg_color #FFFFFF     #FFFFFF   $main_color
-client.unfocused        $bg_color   $bg_color $text_color #669999   $bg_color
-#client.focused_inactive #333333 #5f676A #ffffff #484E50   #5f676A
-#client.urgent           #2f343A #900000 #ffffff #900000   #900000
-#client.placeholder      #000000 #0c0c0C #ffffff #000000   #0C0C0C
+#colorclass             border  background text   indicator child_border
+client.focused          $main   $bg        $text  #ffffff   $main
+client.unfocused        $bg     $bg        $text  #669999   $bg
+client.focused_inactive #333333 #5f676A    $text  #484E50   #5f676A
+client.urgent           $urgent $urgent    $text  $urgent   $urgent
+client.placeholder      #000000 #0c0c0C    $text  #000000   #0C0C0C
 
 bar {
    position top
@@ -163,14 +163,14 @@ bar {
    strip_workspace_numbers yes
 
    colors {
-      background $bg_color
-      statusline $text_color
+      background $bg
+      statusline $text
 
-      # colorclass       border      bg        text
-      focused_workspace  $bg_color   $bg_color $main_color
-      active_workspace   $bg_color   #5f676A   #000000
-      inactive_workspace $bg_color   $bg_color #888888
-      urgent_workspace   $main_color #000000   #FFFFFF
+      # colorclass       border  bg        text
+      focused_workspace  $main   $bg       $main
+      active_workspace   $main   $bg       $text
+      inactive_workspace $bg     $bg       $text
+      urgent_workspace   $urgent $bg       $urgent
    }
 }
 
