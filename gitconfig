@@ -7,20 +7,24 @@
   c = commit --verbose
   ca = commit --amend --verbose
   co = checkout
+  cob = checkout -b
   co-pr = !sh -c 'git fetch upstream pull/$1/head:pr/$1 && git checkout pr/$1' -
   d = diff
   dc = diff --cached
   fo = fetch origin
+  rom = rebase origin/master
   fu = fetch upstream
+  rum = rebase upstream/master
   l = log --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %C(bold)%s%Creset %Cgreen[%an]%Creset' --abbrev-commit --all --decorate --color
   ll = log --pretty=format:'%Cred%h%Creset %C(bold)%s%C(yellow)%d%Creset %C(green)[%an]%Creset%n%n%B' --abbrev-commit --all --decorate --color --date=short
   lll = log --pretty=format:'%Cred%H%Creset %s %C(yellow)[%ad]%Creset %C(green)[%an]%Creset%n %D' --abbrev-commit --all --decorate --color --date=short -p
   po = push origin
   pf = push --force-with-lease
   rs = reset HEAD
-  rem = remote -v
   s = status -sb
   rebase = rebase -i
+  undo = reset HEAD~1 --mixed
+  wip = commit -am "WIP"
 
 [color]
   ui = auto

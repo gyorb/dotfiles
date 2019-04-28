@@ -19,28 +19,13 @@ alias tnew='tmux new -s'
 alias mc='mc -b'
 
 #git
-alias ga='git a'
-alias gbr='git br'
-alias gc='git c'
-alias gca='git ca'
-alias gco='git co'
-alias gd='git d'
-alias gdt='git difftool'
-alias gdc='git dc'
-alias gfo='git fo'
-alias gfu='git fu'
-alias gl='git l'
-alias gll='git ll'
-alias glll='git lll'
-alias gpf='git pf'
-alias grem='git rem'
-alias grs='git rs'
-alias gs='git s'
+alias g="git"
 
 # make
 alias m='make'
 
 # docker
+alias d="docker"
 
 # Get latest container ID
 alias dl="docker ps -l -q"
