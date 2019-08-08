@@ -43,23 +43,13 @@ alias m='make'
 
 # docker
 alias d="docker"
-
-# Get latest container ID
-alias dl="docker ps -l -q"
-
-# Get container process
-alias dps="docker ps"
-
-# Get process included stop container
-alias dpa="docker ps -a"
-
-# Get images
-alias di="docker images"
-
+alias dl="docker ps -l -q" # Get latest container ID
+alias dps="docker ps" # Get container process
+alias dpa="docker ps -a" # Get process included stop container
+alias di="docker image ls" # Get images
 alias drm="docker rm"
+alias dex="docker exec -i -t" # Execute interactive container, e.g., $dex base /bin/bash
 
-# Execute interactive container, e.g., $dex base /bin/bash
-alias dex="docker exec -i -t"
 
 
 # fkill - kill process
