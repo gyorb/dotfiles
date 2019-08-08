@@ -20,6 +20,23 @@ alias mc='mc -b'
 
 #git
 alias g="git"
+alias ga="g a"
+alias gc="g c"
+alias gca="g ca"
+alias gbr="g br"
+alias gca="g ca"
+alias gr="g reo"
+alias gcob="g cob"
+alias gd="g d"
+alias gdc="g dc"
+alias gfu="g fu"
+alias gl="g l"
+alias gll="g ll"
+alias glll="g lll"
+alias gpf="g pf"
+alias gpo="g po"
+alias grum="g rum"
+alias gs="g s"
 
 # make
 alias m='make'
