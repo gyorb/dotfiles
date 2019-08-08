@@ -9,6 +9,8 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
+alias s='source'
+
 # tmux
 alias ta='tmux attach -t'
 alias tkill='tmux kill-session -t'
