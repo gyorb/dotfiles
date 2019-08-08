@@ -50,6 +50,9 @@ alias di="docker image ls" # Get images
 alias drm="docker rm"
 alias dex="docker exec -i -t" # Execute interactive container, e.g., $dex base /bin/bash
 
+# python
+alias pydoc2='python2 -m pydoc' # pydoc json
+alias pydoc='python -m pydoc' # pydoc json
 
 
 # fkill - kill process
