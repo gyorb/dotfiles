@@ -54,6 +54,10 @@ alias dex="docker exec -i -t" # Execute interactive container, e.g., $dex base /
 alias pydoc2='python2 -m pydoc' # pydoc json
 alias pydoc='python -m pydoc' # pydoc json
 
+# go
+godoc() {
+    go doc -all "$1" |less
+}
 
 # fkill - kill process
 fkill() {
