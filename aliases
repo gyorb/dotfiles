@@ -10,6 +10,7 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 
 alias s='source'
+alias mc='mc -b'
 
 # tmux
 alias ta='tmux attach -t'
@@ -17,8 +18,6 @@ alias tkill='tmux kill-session -t'
 alias tls='tmux ls'
 alias tmux='tmux -2'
 alias tnew='tmux new -s'
-
-alias mc='mc -b'
 
 #git
 alias g="git"
