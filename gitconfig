@@ -11,10 +11,13 @@
   co-pr = !sh -c 'git fetch upstream pull/$1/head:pr/$1 && git checkout pr/$1' -
   d = diff
   dc = diff --cached
+  dlb = branch --delete # delete local branch
+  drb = push --delete # delete remote branch
   fo = fetch origin
-  rom = rebase origin/master
+  rom = rebase -i origin/master
   fu = fetch upstream
-  rum = rebase upstream/master
+  r = remote -v
+  rum = rebase -i upstream/master
   l = log --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %C(bold)%s%Creset %Cgreen[%an]%Creset' --abbrev-commit --all --decorate --color
   ll = log --pretty=format:'%Cred%h%Creset %C(bold)%s%C(yellow)%d%Creset %C(green)[%an]%Creset%n%n%B' --abbrev-commit --all --decorate --color --date=short
   lll = log --pretty=format:'%Cred%H%Creset %s %C(yellow)[%ad]%Creset %C(green)[%an]%Creset%n %D' --abbrev-commit --all --decorate --color --date=short -p
@@ -55,7 +58,7 @@
   editor = vim
 
 [push]
-  default = simple
+	default = current
 
 [diff]
   tool = vimdiff
@@ -80,3 +83,6 @@
 
 [gc]
   auto = 0
+
+[remote]
+	pushdefault = origin
