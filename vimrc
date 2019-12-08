@@ -1,57 +1,38 @@
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-fugitive'
-Plug 'kien/ctrlp.vim'
-Plug 'tacahiroy/ctrlp-funky'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'airblade/vim-gitgutter'
 Plug 'leshill/vim-json'
-Plug 'benmills/vimux'
-Plug 'Chiel92/vim-autoformat'
-Plug 'osyo-manga/vim-over'
-Plug 'tpope/vim-commentary'
-Plug 'shougo/neocomplete.vim'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'sheerun/vim-polyglot'
-Plug 'solarnz/thrift.vim'
 
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" html
-Plug 'hail2u/vim-css3-syntax'
-Plug 'gorodinskiy/vim-coloresque'
-Plug 'tpope/vim-haml'
-Plug 'mattn/emmet-vim'
-
-" javascript
-Plug 'jelera/vim-javascript-syntax'
-
-" python
-Plug 'nvie/vim-flake8'
-Plug 'davidhalter/jedi-vim'
-Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
-
-" go
-Plug 'fatih/vim-go'
-
-if has('nvim')
-  Plug 'benekastah/neomake'
-endif
-
 Plug 'jakwings/vim-colors'
+
+Plug 'rust-lang/rust.vim'
+
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-gocode.vim'
+
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'scrooloose/nerdcommenter'
 
 call plug#end()
 
-syntax off
+"syntax off
 
+set background=dark
 colorscheme moody
 
-" Syntax highlight
-" Default highlight is better than polyglot
-let g:polyglot_disabled = ['python']
-let python_highlight_all = 1
+set linespace=0
+set signcolumn=yes
+set encoding=utf-8
+set textwidth=80
 
 set ttyfast
 
@@ -74,20 +55,19 @@ set updatetime=500
 
 set fileformats=unix,dos,mac
 
-" jedi
-let g:jedi#use_splits_not_buffers = "right"
-let g:jedi#goto_definitions_command = "gd"
-let g:jedi#documentation_command = "gh"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>r"
+set formatoptions=qrnjot1
+
+" quick timestamp
+nnoremap tt "=strftime("%FT%T%z")<CR>p
 
 augroup file_types
     autocmd!
     autocmd BufRead,BufNewFile *.md
                           \ set filetype=markdown
                           \ textwidth=79
-    autocmd BufRead,BufNewFile *.txt set filetype=markdown
+    autocmd BufRead,BufNewFile *.txt
+                          \ set filetype=markdown
+                          \ textwidth=79
     autocmd BufRead,BufNewFile *.js set filetype=javascript syntax=javascript
     autocmd BufRead,BufNewFile *.json set filetype=json syntax=javascript
     autocmd BufRead,BufNewFile *.py
@@ -116,35 +96,10 @@ set titlestring=%F
 noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 " Display tabs and trailing spaces visually.
-set list listchars=tab:>\ ,trail:·,extends:>,precedes:<,nbsp:~
+set list listchars=tab:.\ ,trail:·,extends:>,precedes:<,nbsp:~
 
-set omnifunc=syntaxcomplete#Complete
+"set omnifunc=syntaxcomplete#Complete
 set complete-=i
-
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-    return neocomplete#close_popup() . "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 " Disable esc key delay.
 set ttimeout
@@ -167,10 +122,7 @@ vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
-" Clipboard settings
-if has('unnamedplus')
-  set clipboard=unnamed,unnamedplus "system clipboard
-endif
+set clipboard=unnamed,unnamedplus
 
 " Copy
 map <leader>y "+y
@@ -186,14 +138,24 @@ vnoremap <leader>P "+P
 
 " Turn off swap files.
 set noswapfile
-set nobackup
-set nowb
+
+" Persist undo after exit
+set undofile
+set undodir=~/.vim/.undo//
+
+" set backupdir=~/.vim/.backup//
 
 set history=2000
 
 set hidden
 set title
+
 set scrolloff=3
+" faster scrolling
+set scrolljump=10
+
+" show diff mode in vertical splits
+set diffopt+=vertical
 
 " Configure backspace.
 set backspace=indent,eol,start
@@ -219,15 +181,17 @@ nnoremap <leader>/ :nohlsearch<CR>
 nnoremap * *``
 
 " Line numbering.
-set nuw=1
-set nu
-set relativenumber
+" set nuw=1
+" set nu
+" set relativenumber
 
 " Update content if file is changed.
 set autoread
 
 " Disable ex mode.
 nnoremap Q <nop>
+
+cmap Wq wq
 
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
@@ -250,18 +214,19 @@ nmap <leader>8 8gt
 nmap <leader>9 9gt
 
 " Moving between splits.
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nnoremap <silent> <c-j> <C-W><C-J>
+nnoremap <silent> <c-k> <C-W><C-K>
+nnoremap <silent> <c-l> <C-W><C-L>
+nnoremap <silent> <c-h> <C-W><C-H>
+nnoremap <silent> <c-z> <C-W>_
 
-map <leader>o :Ex<cr>
-map <leader>v :vs<cr>
-map <leader>q :q<cr>
+map <leader>i :Ex<CR>
+map <leader>s :vs<CR>
+map <leader>q :q<CR>
 
 " Fast saving.
 nnoremap <leader>w :write<cr>
-nnoremap <leader>q :q<CR>
+nnoremap <leader>q :bd<CR>
 
 inoremap } }<Left><c-o>%<c-o>:sleep 500m<CR><c-o>%<c-o>a
 inoremap ] ]<Left><c-o>%<c-o>:sleep 500m<CR><c-o>%<c-o>a
@@ -323,33 +288,12 @@ nnoremap <silent> 0 :call ToggleMovement('^', '0')<CR>
 nnoremap <silent> G :call ToggleMovement('G', 'gg')<CR>
 nnoremap <silent> gg :call ToggleMovement('gg', 'G')<CR>
 
-if has('nvim')
-  " neomake
-  let g:neomake_python_enabled_makers = ['pycodestyle']
-  autocmd BufWritePost *.py execute 'Neomake'
-
-  " neovim terminal
-  tnoremap <c-a> <c-g><esc>
-  " exit terminal mode
-  tnoremap <Esc> <C-\><C-n>
-
-  " move from the neovim terminal window to somewhere else
-  tnoremap <C-h> <C-\><C-n><C-w>h
-  tnoremap <C-j> <C-\><C-n><C-w>j
-  tnoremap <C-k> <C-\><C-n><C-w>k
-  tnoremap <C-l> <C-\><C-n><C-w>l
-endif
-
 " ================== Plugin Configs =====================
 
-" vim-go
-"let g:go_auto_type_info = 1
-let g:go_metalinter_autosave = 1
-let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
-
-" vim-autoformat
-" autocmd BufWrite * :Autoformat
-noremap <F3> :Autoformat<CR>
+map cn :cnext<CR>
+map cp :cprevious<CR>
+nnoremap cc :cclose<CR>
+nnoremap co :copen<CR>
 
 if executable('ag')
     let g:ackprg = 'ag --vimgrep'
@@ -375,26 +319,12 @@ let g:gitgutter_terminal_reports_focus=0
 let g:gitgutter_max_signs = 500  " default value
 "let g:gitgutter_highlight_lines = 1
 
-nmap cn <Plug>GitGutterNextHunk
-nmap cp <Plug>GitGutterPrevHunk
-
-" ultisnips
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-" vimux
-map <leader>xl :VimuxRunLastCommand<CR>
-map <leader>xx :VimuxCloseRunner<CR>
-map <leader>xs :VimuxInterruptRunner<CR>
-map <leader>xz :VimuxZoomRunner<CR>
-map <leader>xc :VimuxPromptCommand<CR>
-map <leader>xb :call VimuxRunCommand("make")<CR>
+nmap gn <Plug>GitGutterNextHunk
+nmap gp <Plug>GitGutterPrevHunk
+nmap gb <Plug>Gblame
 
 " fzf
-map <leader>n :GFiles<cr>
+map <leader>o :GFiles<cr>
 map <leader>b :Buffers<cr>
 map <leader>g :Ag<cr>
 map <leader>m :History<cr>
@@ -417,11 +347,6 @@ let g:ctrlp_max_files = 0
 let g:ctrlp_use_caching = 0
 let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*'
 
-" ctrlpFunky
-nnoremap <Leader>u :CtrlPFunky<Cr>
-" narrow the list down with a word under cursor
-nnoremap <Leader>U :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-
 " ================== Theme =====================
 " Color setup.
 set t_Co=256
@@ -436,8 +361,8 @@ highlight SpecialKey ctermfg=0
 "highlight ColorColumn ctermbg=232
 "let &colorcolumn="80,".join(range(120,999),",")
 
-hi StatusLine   ctermfg=none  guifg=#ffffff ctermbg=234 guibg=#4e4e4e cterm=bold gui=bold
-hi StatusLineNC ctermfg=250  guifg=#b2b2b2 ctermbg=none guibg=#3a3a3a cterm=none gui=none
+hi StatusLine   ctermfg=white  guifg=#ffffff ctermbg=234 guibg=#4e4e4e cterm=bold gui=bold
+hi StatusLineNC ctermfg=250  guifg=#b2b2b2 ctermbg=234 guibg=#3a3a3a cterm=none gui=none
 hi VertSplit    ctermfg=none  guifg=#3a3a3a ctermbg=none guibg=#3a3a3a cterm=none gui=none
 hi CursorLineNR cterm=bold ctermbg=none
 hi FoldColumn ctermbg=none ctermfg=none
@@ -455,9 +380,71 @@ hi GitGutterChange ctermfg=yellow
 hi GitGutterDelete ctermfg=red
 hi GitGutterChangeDelete ctermfg=red
 
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
 " Load local config.
 try
     source ~/local/.vimrc_local
 catch
     " No such file? Just ignore it.
 endtry
+
+" LSP configuration
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_signs_enabled = 0           " enable signs
+let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+let g:lsp_signs_error = {'text': 'x'}
+let g:lsp_signs_warning = {'text': '‼'}
+let g:lsp_signs_hint = {'text': '!'}
+let g:lsp_highlight_references_enabled = 0
+let g:lsp_highlights_enabled = 0
+let g:lsp_textprop_enabled = 0
+
+map gd :LspDefinition<CR>
+map gh :LspHover<CR>
+map gp :LspDocumentDiagnostics<CR>
+
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ 'workspace_config': {'pyls': {'plugins': {'pycodestyle': {'enabled': v:true}, 'pylint':{'enabled': v:true}} }}
+        \ })
+endif
+
+if executable('gopls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'gopls',
+        \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+        \ 'whitelist': ['go'],
+        \ })
+    autocmd BufWritePre *.go "LspDocumentFormatSync<CR>"
+endif
+
+call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
+    \ 'name': 'gocode',
+    \ 'whitelist': ['go'],
+    \ 'completor': function('asyncomplete#sources#gocode#completor'),
+    \ 'config': {
+    \    'gocode_path': expand('gocode')
+    \  },
+    \ }))
+
+if executable('clangd')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd', '-background-index']},
+        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ })
+endif
+
+if executable('rls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+        \ 'whitelist': ['rust'],
+        \ })
+endif
