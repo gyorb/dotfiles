@@ -327,7 +327,7 @@ nmap gb <Plug>Gblame
 " fzf
 map <leader>o :GFiles<cr>
 map <leader>b :Buffers<cr>
-map <leader>g :Ag<cr>
+map <leader>rg :Rg<cr>
 map <leader>m :History<cr>
 
 " Clean search (highlight)
