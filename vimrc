@@ -215,7 +215,11 @@ nnoremap <silent> <c-j> <C-W><C-J>
 nnoremap <silent> <c-k> <C-W><C-K>
 nnoremap <silent> <c-l> <C-W><C-L>
 nnoremap <silent> <c-h> <C-W><C-H>
-nnoremap <silent> <c-z> <C-W>_
+
+nnoremap <silent> <leader>j <C-W><C-J>
+nnoremap <silent> <leader>k <C-W><C-K>
+nnoremap <silent> <leader>l <C-W><C-L>
+nnoremap <silent> <leader>h <C-W><C-H>
 
 map <leader>i :Ex<CR>
 map <leader>s :vs<CR>
