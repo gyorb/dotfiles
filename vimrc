@@ -355,26 +355,37 @@ set t_Co=256
 "set t_ut=disable
 set background=dark
 
-highlight NonText ctermfg=0
+"highlight NonText ctermfg=0
 highlight SpecialKey ctermfg=0
 
 "set colorcolumn=80
 "highlight ColorColumn ctermbg=232
 "let &colorcolumn="80,".join(range(120,999),",")
 
-hi StatusLine   ctermfg=white  guifg=#ffffff ctermbg=234 guibg=#4e4e4e cterm=bold gui=bold
-hi StatusLineNC ctermfg=250  guifg=#b2b2b2 ctermbg=234 guibg=#3a3a3a cterm=none gui=none
+hi StatusLine   ctermfg=233 ctermbg=72 cterm=bold guifg=#ffffff guibg=#4e4e4e gui=bold
+hi StatusLineNC ctermfg=250 ctermbg=236 cterm=none guifg=#b2b2b2 guibg=#3a3a3a gui=none
+hi StatusLineTerm   ctermfg=233 ctermbg=66 cterm=bold guifg=#ffffff guibg=#4e4e4e gui=bold
+hi StatusLineTermNC ctermfg=250 ctermbg=236 cterm=none guifg=#b2b2b2 guibg=#3a3a3a gui=none
 hi VertSplit    ctermfg=none  guifg=#3a3a3a ctermbg=none guibg=#3a3a3a cterm=none gui=none
 hi CursorLineNR cterm=bold ctermbg=none
 hi FoldColumn ctermbg=none ctermfg=none
+hi Visual ctermbg=236 ctermfg=none gui=none
+
+" beginning Tab background
+hi SpecialKey ctermbg=none ctermfg=233 gui=none
 
 set fillchars=vert:\|
 
 " Unset background color.
 hi Normal ctermbg=none
-hi NonText ctermbg=none
+"hi NonText ctermbg=none
 hi LineNr ctermbg=none
 hi clear SignColumn
+
+highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=234 gui=none guifg=bg guibg=Red
+highlight DiffDelete cterm=bold ctermfg=203 ctermbg=234 gui=none guifg=bg guibg=Red
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=234 gui=none guifg=bg guibg=Red
+highlight DiffText   cterm=bold ctermfg=234 ctermbg=186 gui=none guifg=bg guibg=Red
 
 hi GitGutterAdd ctermfg=green
 hi GitGutterChange ctermfg=yellow
