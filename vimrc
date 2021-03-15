@@ -416,6 +416,7 @@ let g:lsp_textprop_enabled = 0
 map gd :LspDefinition<CR>
 map gh :LspHover<CR>
 map gp :LspDocumentDiagnostics<CR>
+map gr :LspReferences<CR>
 
 if executable('pyls')
     au User lsp_setup call lsp#register_server({
