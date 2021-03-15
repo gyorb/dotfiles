@@ -23,8 +23,8 @@ call plug#end()
 
 "syntax off
 
+colorscheme jellybeans
 set background=dark
-colorscheme moody
 
 set linespace=0
 set signcolumn=yes
