@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
+" git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
@@ -7,42 +8,40 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'nanotech/jellybeans.vim'
-Plug 'rust-lang/rust.vim'
-
+" lsp
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'scrooloose/nerdcommenter'
+" colorscheme
+Plug 'nanotech/jellybeans.vim'
+
+" snippets
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'rafamadriz/friendly-snippets'
 
 call plug#end()
 
-"syntax off
+set background=dark
+" Color setup.
+set t_Co=256
 
 colorscheme jellybeans
-set background=dark
 
 set linespace=0
 set signcolumn=yes
 set encoding=utf-8
-set textwidth=80
 
 set ttyfast
-
-filetype on
-filetype indent on
-filetype plugin on
 
 let mapleader = "\<SPACE>"
 let g:mapleader = "\<SPACE>"
 
 " Identation, tabs, and spaces.
-set shiftwidth=2 tabstop=2 softtabstop=2 autoindent expandtab
-set autoindent
+set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
 " Set line-spacing to minimum.
 set linespace=0
@@ -52,10 +51,155 @@ set updatetime=500
 
 set fileformats=unix,dos,mac
 
-set formatoptions=qrnjot1
+" Disable esc key delay.
+set ttimeout
+set ttimeoutlen=0
+set notimeout
 
-" quick timestamp
-nnoremap tt "=strftime("%FT%T%z")<CR>p
+" Disable folding.
+set nofoldenable
+
+" Search files recursively.
+set path+=**
+
+" Disable banner.
+let g:netrw_banner = 0
+
+set clipboard=unnamed,unnamedplus
+
+" Turn off swap files.
+set noswapfile
+set nobackup
+set nowb
+
+set history=2000
+
+set hidden
+set title
+
+" show diff mode in vertical splits
+set diffopt+=vertical
+
+set splitbelow
+
+" Configure backspace.
+set backspace=indent,eol,start
+
+set showcmd
+
+set wildmenu
+set wildmode=list:longest,list:full
+
+" Search.
+set showmatch
+set matchtime=3
+set incsearch
+set hlsearch
+set ignorecase          " Make searching case insensitive
+set smartcase           " ... unless the query has capital letters.
+
+" Clean search (highlight)
+nnoremap <silent> <leader><space> :noh<cr>
+
+nnoremap <leader>/ :nohlsearch<CR>
+nnoremap * *``
+
+" Disable ex mode.
+nnoremap Q <nop>
+
+cmap Wq wq
+cmap W w
+
+vnoremap < <gv
+vnoremap > >gv
+
+" Display tabs and trailing spaces visually.
+set list listchars=tab:.\ ,trail:·,extends:>,precedes:<,nbsp:~
+
+" Copy
+map <leader>y "+y
+map <leader>Y "+Y
+map <leader>P "+P
+map <leader>p "+p
+
+" Paste
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+
+noremap <leader>e :Ex<CR>
+noremap <leader>i :Ex<CR>
+noremap <leader>s :split<CR>
+noremap <leader>v :vsplit<CR>
+noremap <leader>q :q<CR>
+
+" Fast saving.
+nnoremap <leader>w :write<cr>
+nnoremap <leader>q :bd<CR>
+
+" Disable upper/lower in visual mode
+vnoremap U <nop>
+vnoremap u <nop>
+
+" Moving between splits.
+nnoremap <silent> <c-j> <C-W><C-J>
+nnoremap <silent> <c-k> <C-W><C-K>
+nnoremap <silent> <c-l> <C-W><C-L>
+nnoremap <silent> <c-h> <C-W><C-H>
+
+" Long lines with wrapping move to other part/line.
+nnoremap j gj
+nnoremap k gk
+nnoremap J mzJ`z
+
+nnoremap n nzz
+nnoremap N Nzz
+
+nnoremap c :cclose<CR>
+
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+
+" Toggle spell checking.
+"map <leader>ss :setlocal spell!<cr>
+
+" Statusline.
+set laststatus=2
+
+" Format the statusline.
+set statusline=%m%r%h%w
+set statusline+=\ \[%{FugitiveHead()}\]
+set statusline+=\ %f
+set statusline+=%=
+set statusline+=%{&fileencoding?&fileencoding:&encoding}
+set statusline+=\ %Y\ 
+"set statusline+=%=%(%{&ff}\ %{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\ %)
+"set statusline+=%(%2l:%2v\ %)
+set statusline+=%(%l:%v\ %)
+
+function! ToggleMovement(firstOp, thenOp)
+    let pos = getpos('.')
+    execute "normal! " . a:firstOp
+    if pos == getpos('.')
+        execute "normal! " . a:thenOp
+    endif
+endfunction
+
+" The original carat 0 swap
+nnoremap <silent> 0 :call ToggleMovement('^', '0')<CR>
+
+" How about G and gg
+nnoremap <silent> G :call ToggleMovement('G', 'gg')<CR>
+nnoremap <silent> gg :call ToggleMovement('gg', 'G')<CR>
+
+" Bind K to grep word under cursor.
+nnoremap <leader>f :Rg <C-R><C-W><CR>
 
 augroup file_types
     autocmd!
@@ -76,291 +220,11 @@ augroup file_types
                           \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
     autocmd BufRead,BufNewFile *.go
                           \ set autoindent
+    autocmd BufRead,BufNewFile go.sum set filetype=go syntax=go
+    autocmd BufRead,BufNewFile go.mod set filetype=go syntax=go
     autocmd FileType make setlocal noexpandtab
 augroup END
 
-if exists('$SHELL')
-    set shell=$SHELL
-else
-    set shell=/bin/sh
-endif
-
-set title
-set titleold="terminal"
-set titlestring=%F
-
-"" Opens an edit command with the path of the currently edited file filled in
-noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
-" Display tabs and trailing spaces visually.
-set list listchars=tab:.\ ,trail:·,extends:>,precedes:<,nbsp:~
-
-"set omnifunc=syntaxcomplete#Complete
-set complete-=i
-
-" Disable esc key delay.
-set ttimeout
-set ttimeoutlen=0
-set notimeout
-
-" Disable folding.
-set nofoldenable
-
-" Search files recursively.
-set path+=**
-
-" Disable banner.
-let g:netrw_banner = 0
-
-" Open splits to the right.
-let g:netrw_altv = 1
-
-vnoremap <silent> y y`]
-vnoremap <silent> p p`]
-nnoremap <silent> p p`]
-
-set clipboard=unnamed,unnamedplus
-
-" Copy
-map <leader>y "+y
-map <leader>Y "+Y
-map <leader>P "+P
-map <leader>p "+p
-
-" Paste
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
-
-" Turn off swap files.
-set noswapfile
-
-" Persist undo after exit
-set undofile
-set undodir=~/.vim/.undo//
-
-" set backupdir=~/.vim/.backup//
-
-set history=2000
-
-set hidden
-set title
-
-set scrolloff=3
-" faster scrolling
-set scrolljump=10
-
-" show diff mode in vertical splits
-set diffopt+=vertical
-
-" Configure backspace.
-set backspace=indent,eol,start
-
-set showcmd
-
-set wildmenu
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-
-set splitright
-set splitbelow
-
-" Search.
-set showmatch
-set matchtime=3
-set incsearch
-set hlsearch
-set ignorecase          " Make searching case insensitive
-set smartcase           " ... unless the query has capital letters.
-
-nnoremap <leader>/ :nohlsearch<CR>
-nnoremap * *``
-
-" Line numbering.
-" set nuw=1
-" set nu
-" set relativenumber
-
-" Update content if file is changed.
-set autoread
-
-" Disable ex mode.
-nnoremap Q <nop>
-
-cmap Wq wq
-
-vnoremap <silent> * :call VisualSelection('f')<CR>
-vnoremap <silent> # :call VisualSelection('b')<CR>
-
-vnoremap < <gv
-vnoremap > >gv
-
-" Tab moving.
-nnoremap <S-h> gT
-nnoremap <S-l> gt
-
-nmap <leader>1 1gt
-nmap <leader>2 2gt
-nmap <leader>3 3gt
-nmap <leader>4 4gt
-nmap <leader>5 5gt
-nmap <leader>6 6gt
-nmap <leader>7 7gt
-nmap <leader>8 8gt
-nmap <leader>9 9gt
-
-" Moving between splits.
-nnoremap <silent> <c-j> <C-W><C-J>
-nnoremap <silent> <c-k> <C-W><C-K>
-nnoremap <silent> <c-l> <C-W><C-L>
-nnoremap <silent> <c-h> <C-W><C-H>
-
-nnoremap <silent> <leader>j <C-W><C-J>
-nnoremap <silent> <leader>k <C-W><C-K>
-nnoremap <silent> <leader>l <C-W><C-L>
-nnoremap <silent> <leader>h <C-W><C-H>
-
-map <leader>i :Ex<CR>
-map <leader>s :vs<CR>
-map <leader>q :q<CR>
-
-" Fast saving.
-nnoremap <leader>w :write<cr>
-nnoremap <leader>q :bd<CR>
-
-inoremap } }<Left><c-o>%<c-o>:sleep 500m<CR><c-o>%<c-o>a
-inoremap ] ]<Left><c-o>%<c-o>:sleep 500m<CR><c-o>%<c-o>a
-inoremap ) )<Left><c-o>%<c-o>:sleep 500m<CR><c-o>%<c-o>a
-
-" Long lines with wrapping move to other part/line.
-nnoremap j gj
-nnoremap k gk
-
-nnoremap J mzJ`z
-
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-
-" Return to last edit position when opening files.
-autocmd BufReadPost *
-            \ if line("'\"") > 0 && line("'\"") <= line("$") |
-            \   exe "normal! g`\"" |
-            \ endif
-
-" Remember info about open buffers on close.
-"set viminfo^=%
-
-" Toggle spell checking.
-map <leader>ss :setlocal spell!<cr>
-
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
-" Statusline.
-set laststatus=2
-
-" Format the statusline.
-set statusline=%m%r%h%w\ %f\ %=%(%{&ff}\ %{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\ %)%(%l/%L,%v\ %)
-
-highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
-
-function! ToggleMovement(firstOp, thenOp)
-    let pos = getpos('.')
-    execute "normal! " . a:firstOp
-    if pos == getpos('.')
-        execute "normal! " . a:thenOp
-    endif
-endfunction
-
-" The original carat 0 swap
-nnoremap <silent> 0 :call ToggleMovement('^', '0')<CR>
-
-" How about G and gg
-nnoremap <silent> G :call ToggleMovement('G', 'gg')<CR>
-nnoremap <silent> gg :call ToggleMovement('gg', 'G')<CR>
-
-" ================== Plugin Configs =====================
-
-map cn :cnext<CR>
-map cp :cprevious<CR>
-nnoremap cc :cclose<CR>
-nnoremap co :copen<CR>
-
-if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
-    set grepprg=ag\ --nogroup\ --nocolor
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    let g:ctrlp_use_caching = 0
-else
-    let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-    let g:ctrlp_prompt_mappings = {
-                \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-                \ }
-endif
-
-" Bind K to grep word under cursor.
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR><CR>
-
-" gitgutter
-" unmap gitgutter maps (moving between splits)
-let g:gitgutter_map_keys = 0
-" update markers on file open
-let g:gitgutter_terminal_reports_focus=0
-
-let g:gitgutter_max_signs = 500  " default value
-"let g:gitgutter_highlight_lines = 1
-
-nmap gn <Plug>GitGutterNextHunk
-nmap gp <Plug>GitGutterPrevHunk
-nmap gb <Plug>Gblame
-
-" fzf
-map <leader>o :GFiles<cr>
-map <leader>b :Buffers<cr>
-map <leader>rg :Rg<cr>
-map <leader>m :History<cr>
-
-" Clean search (highlight)
-nnoremap <silent> <leader><space> :noh<cr>
-
-let g:ctrlp_working_path_mode = 'arw'
-" Search from current directory instead of project root
-"let g:ctrlp_working_path_mode = 0
-
-let g:ctlp_by_filename = 1
-
-"let g:ctrlp_regexp = 1
-let g:ctrlp_by_filename = 1
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_mruf_max = 500
-"let g:ctrlp_mruf_case_sensitive = 1
-let g:ctrlp_max_files = 0
-let g:ctrlp_use_caching = 0
-let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*'
-
-" ================== Theme =====================
-" Color setup.
-set t_Co=256
-
-"set t_ut=disable
-set background=dark
-
-"highlight NonText ctermfg=0
-highlight SpecialKey ctermfg=0
-
-"set colorcolumn=80
-"highlight ColorColumn ctermbg=232
-"let &colorcolumn="80,".join(range(120,999),",")
 
 hi StatusLine   ctermfg=233 ctermbg=72 cterm=bold guifg=#ffffff guibg=#4e4e4e gui=bold
 hi StatusLineNC ctermfg=250 ctermbg=236 cterm=none guifg=#b2b2b2 guibg=#3a3a3a gui=none
@@ -371,10 +235,6 @@ hi CursorLineNR cterm=bold ctermbg=none
 hi FoldColumn ctermbg=none ctermfg=none
 hi Visual ctermbg=236 ctermfg=none gui=none
 
-" beginning Tab background
-hi SpecialKey ctermbg=none ctermfg=233 gui=none
-
-set fillchars=vert:\|
 
 " Unset background color.
 hi Normal ctermbg=none
@@ -382,82 +242,158 @@ hi Normal ctermbg=none
 hi LineNr ctermbg=none
 hi clear SignColumn
 
+highlight ExtraWhitespace ctermfg=darkgreen guifg=darkgreen
+highlight NonText ctermfg=0
+" beginning Tab background
+highlight SpecialKey ctermbg=none ctermfg=233 gui=none
+
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
 highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=234 gui=none guifg=bg guibg=Red
 highlight DiffDelete cterm=bold ctermfg=203 ctermbg=234 gui=none guifg=bg guibg=Red
 highlight DiffChange cterm=bold ctermfg=10 ctermbg=234 gui=none guifg=bg guibg=Red
 highlight DiffText   cterm=bold ctermfg=234 ctermbg=186 gui=none guifg=bg guibg=Red
 
-hi GitGutterAdd ctermfg=green
-hi GitGutterChange ctermfg=yellow
-hi GitGutterDelete ctermfg=red
-hi GitGutterChangeDelete ctermfg=red
+highlight Search ctermbg=none ctermfg=yellow
+highlight QuickFixLine ctermbg=black guibg=black
 
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
+hi GitGutterAdd ctermfg=green ctermbg=none
+hi GitGutterChange ctermfg=yellow ctermbg=none
+hi GitGutterDelete ctermfg=red ctermbg=none
+hi GitGutterChangeDelete ctermfg=red ctermbg=none
 
-" Load local config.
-try
-    source ~/local/.vimrc_local
-catch
-    " No such file? Just ignore it.
-endtry
+function! ConflictsHighlight() abort
+  syn match conflictBegin /^<<<<<<< .*$/
+  syn match conflictEnd /^>>>>>>> .*$/
+  highlight conflictBegin ctermbg=236 cterm=bold ctermfg=254
+  highlight conflictEnd ctermbg=236 cterm=bold ctermfg=254
+endfunction
+
+augroup ConflictColors
+    autocmd!
+    autocmd BufEnter * call ConflictsHighlight()
+augroup END
+
+map <silent> <leader>no :FZF ~/doc/notes<cr>
+
+iab nhead
+\---
+\<CR>title:
+\<CR>tags: []
+\<CR>summary:
+\<CR>---
+\<esc>3kA
+
+" fzf
+map <leader>o :GFiles<cr>
+map <leader>m :Marks<cr>
+map <leader>b :Buffers<cr>
+map <leader>rg :Rg<cr>
+
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.3, 'yoffset': 1, 'border': 'horizontal' } }
+
+"lsp
 
 " LSP configuration
 let g:lsp_diagnostics_enabled = 1
-let g:lsp_signs_enabled = 0           " enable signs
 let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
-let g:lsp_signs_error = {'text': 'x'}
-let g:lsp_signs_warning = {'text': '‼'}
-let g:lsp_signs_hint = {'text': '!'}
+
+let g:lsp_document_highlight_enabled = 0
+
+let g:lsp_document_code_action_signs_enabled = 0
+let g:lsp_document_code_action_signs_hint = {'text': 'A'}
+let g:lsp_diagnostics_highlights_enabled = 1
+"hi LspErrorHighlight ctermfg=250 ctermbg=250
+highlight Error ctermfg=203 ctermbg=none
+highlight link LspErrorHighlight Error
+"let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
+
+let g:lsp_diagnostics_signs_enabled = 1
+let g:lsp_diagnostics_signs_error = {'text': 'X'}
+let g:lsp_diagnostics_signs_warning = {'text': '‼'}
+let g:lsp_diagnostics_signs_hint = {'text': '!'}
 let g:lsp_highlight_references_enabled = 0
 let g:lsp_highlights_enabled = 0
 let g:lsp_textprop_enabled = 0
 
-map gd :LspDefinition<CR>
-map gh :LspHover<CR>
-map gp :LspDocumentDiagnostics<CR>
-map gr :LspReferences<CR>
+if executable('gopls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'gopls',
+        \ 'cmd': {server_info->['gopls']},
+        \ 'allowlist': ['go', 'gomod'],
+        \ 'semantic_highlight': ['gopls', 'highlight'],
+        \ 'initialization_options': {
+        \     'completeUnimported': v:true,
+        \     'usePlaceholders': v:true,
+        \     'matcher': 'fuzzy',
+        \     'staticcheck' : v:true,
+        \     'analyses': {
+        \         'unusedwrite': v:true,
+        \         'unusedparams': v:true,
+        \     },
+        \     'codelenses': {
+        \         'generate': v:true,
+        \         'test': v:true,
+        \     },
+        \ },
+        \ })
+    " fix imports
+    autocmd BufWritePre <buffer> call execute('LspCodeActionSync source.organizeImports')
+endif
 
 if executable('pyls')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'pyls',
         \ 'cmd': {server_info->['pyls']},
         \ 'whitelist': ['python'],
-        \ 'workspace_config': {'pyls': {'plugins': {'pycodestyle': {'enabled': v:true}, 'pylint':{'enabled': v:true}} }}
         \ })
 endif
 
-if executable('gopls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'gopls',
-        \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
-        \ 'whitelist': ['go'],
-        \ })
-    autocmd BufWritePre *.go "LspDocumentFormatSync<CR>"
-endif
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> gh <plug>(lsp-hover)
+    inoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    inoremap <buffer> <expr><c-d> lsp#scroll(-4)
 
-call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
-    \ 'name': 'gocode',
-    \ 'whitelist': ['go'],
-    \ 'completor': function('asyncomplete#sources#gocode#completor'),
-    \ 'config': {
-    \    'gocode_path': expand('gocode')
-    \  },
-    \ }))
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+    
+    " refer to doc to add more commands
+endfunction
 
-if executable('clangd')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'clangd',
-        \ 'cmd': {server_info->['clangd', '-background-index']},
-        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-        \ })
-endif
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
-if executable('rls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'rls',
-        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
-        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
-        \ 'whitelist': ['rust'],
-        \ })
-endif
+
+" Expand
+"imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+"smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <Tab>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'
+smap <expr> <Tab>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'
+
+"" Jump forward or backward
+"imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+"smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+set completeopt=menu,preview
