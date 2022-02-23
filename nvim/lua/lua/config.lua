@@ -167,6 +167,7 @@ nnoremap <silent> <leader>k <C-W><C-K>
 nnoremap <silent> <leader>l <C-W><C-L>
 nnoremap <silent> <leader>h <C-W><C-H>
 
+
 " Long lines with wrapping move to other part/line.
 nnoremap j gj
 nnoremap k gk
