@@ -1,4 +1,4 @@
 require('plugins')
-require('config')
 require('theme')
+require('config')
 require('lsp-config')

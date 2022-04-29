@@ -1,5 +1,5 @@
 
 -- Theme
 vim.o.background = 'dark'
-vim.cmd('colorscheme jellybeans')
+vim.cmd('colorscheme tender')
 vim.cmd('hi clear SignColumn')

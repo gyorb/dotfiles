@@ -41,35 +41,127 @@ require('gitsigns').setup {
   },
 }
 
+-- set clipboard=unnamed,unnamedplus
 
+local options = {
+
+  encoding = "utf-8",
+  -- number = true -- line number on the left
+  -- relativenumber = true
+  -- numberwidth = 3 -- always reserve 3 spaces for line number
+  signcolumn = "yes", -- keep 1 column for coc.vim  check
+  modelines = 0,
+  showcmd = true, -- display command in bottom bar
+  clipboard = "unnamedplus",
+  splitbelow = true,
+  splitright = true,
+  -- Disable esc key delay.
+  ttimeout = true,
+  ttimeoutlen = 0,
+  timeout = false,
+
+  -- Set line-spacing to minimum.
+  linespace = 0,
+  -- Turn off swap files.
+  swapfile = false,
+  backup = false,
+  wb = false,
+
+  history = 2000,
+
+  hidden = true,
+  title = true,
+
+}
+
+for k, v in pairs(options) do
+  vim.opt[k] = v
+end
+
+
+local opts = { noremap = true, silent = true }
+local keymap = vim.api.nvim_set_keymap
+
+-- space as leader key
+keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
-vim.opt.encoding="utf-8"
+vim.g.maplocalleader = " "
 
--- Sidebar
-vim.o.number = true -- line number on the left
-vim.o.relativenumber = true
-vim.o.numberwidth = 3 -- always reserve 3 spaces for line number
-vim.o.signcolumn = 'yes' -- keep 1 column for coc.vim  check
-vim.o.modelines = 0
-vim.o.showcmd = true -- display command in bottom bar
+-- Modes
+--   normal = "n",
+--   insert = "i",
+--   visual = "v",
+--   visual_block = "x",
+--   term = "t",
+--   command = "c",
+
+-- Moving between splits
+keymap("n", "<C-h>", "<C-w>h", opts)
+keymap("n", "<C-j>", "<C-w>j", opts)
+keymap("n", "<C-k>", "<C-w>k", opts)
+keymap("n", "<C-l>", "<C-w>l", opts)
+
+keymap("i", "<C-h>", "<C-\\><C-N><C-w>h", opts)
+keymap("i", "<C-j>", "<C-\\><C-N><C-w>j", opts)
+keymap("i", "<C-k>", "<C-\\><C-N><C-w>k", opts)
+keymap("i", "<C-l>", "<C-\\><C-N><C-w>l", opts)
+
+keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", opts)
+keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", opts)
+keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", opts)
+keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", opts)
+
+keymap("t", "<C-b>", "<C-\\><C-N>", opts) -- normal mode in the terminal
+keymap("t", "<C-w>c", "<C-\\><C-N><C-w>c", opts) -- close terminal window
+
+-- TODO review these settings
+keymap("t", "<c-W>z", ":resize 100<CR>", opts)
+keymap("t", "<c-W>d", ":resize 10<CR>", opts)
+keymap("n", "<c-W>z", ":resize 100<CR>", opts)
+keymap("n", "<c-W>d", ":resize 10<CR>", opts)
+
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
+
+keymap("n", "te", ":10 split term://zsh<CR>", opts)
+keymap("n", "tv", ":vsplit term://zsh<CR>", opts)
+
+keymap("n", "<leader>o", ":Telescope find_files theme=dropdown previewer=false find_command=rg,--ignore,--hidden,--files <CR>", opts)
+keymap("n", "<leader>b", ":Telescope buffers<CR>", opts)
+--map <leader>m :Marks<cr>
+keymap("n", "<leader>e", ":Lex 30<CR>", opts)
+keymap("n", "<leader>i", ":Ex<CR>", opts)
+--keymap("n", "<leader>q", ":q<CR>", opts)
+
+keymap("n", "<leader>s", ":lua require'telescope.builtin'.lsp_document_symbols{}<CR>", opts)
+keymap("n", "<leader>ws", ":lua require'telescope.builtin'.lsp_dynamic_workspace_symbols{}<CR>", opts)
+keymap("n", "<leader>ca", ":lua require'telescope.builtin'.lsp_code_actions{}<CR>", opts)
+
+--keymap("n", "dl", ":lua require'telescope.builtin'.diagnostics{}<CR>", opts)
+keymap("n", "dl", ":lua vim.diagnostic.setqflist()<CR>", opts)
+keymap("n", "ds", ":lua vim.diagnostic.show()<CR>", opts)
+keymap("n", "dh", ":lua vim.diagnostic.hide()<CR>", opts)
+keymap("n", "dp", ":lua vim.diagnostic.goto_prev()<CR>", opts)
+keymap("n", "dn", ":lua vim.diagnostic.goto_next()<CR>", opts)
+
+keymap("n", "gi", ":lua require'telescope.builtin'.lsp_implementations{}<CR>", opts)
+keymap("n", "gd", ":lua require'telescope.builtin'.lsp_definitions{}<CR>", opts)
+keymap("n", "gD", ":lua require'telescope.builtin'.lsp_type_definitions{}<CR>", opts)
+keymap("n", "gr", ":lua require'telescope.builtin'.lsp_references{}<CR>", opts)
+
+keymap("n", "rg", ":lua require'telescope.builtin'.live_grep{}<CR>", opts)
+-- TODO grep to word under the cursor
+
 
 vim.cmd([[
 
 " Identation, tabs, and spaces.
 set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
-" Set line-spacing to minimum.
-set linespace=0
-
 " vim update time for faster gitgutter update
 set updatetime=500
 
 set fileformats=unix,dos,mac
-
-" Disable esc key delay.
-set ttimeout
-set ttimeoutlen=0
-set notimeout
 
 " Disable folding.
 set nofoldenable
@@ -80,23 +172,9 @@ set path+=**
 " Disable banner.
 let g:netrw_banner = 0
 
-set clipboard=unnamed,unnamedplus
-
-" Turn off swap files.
-set noswapfile
-set nobackup
-set nowb
-
-set history=2000
-
-set hidden
-set title
 
 " show diff mode in vertical splits
 set diffopt+=vertical
-
-set splitbelow
-set splitright
 
 " Configure backspace.
 set backspace=indent,eol,start
@@ -126,9 +204,6 @@ nnoremap Q <nop>
 cmap Wq wq
 cmap W w
 
-vnoremap < <gv
-vnoremap > >gv
-
 " Display tabs and trailing spaces visually.
 set list listchars=tab:.\ ,trail:·,extends:>,precedes:<,nbsp:~
 
@@ -142,11 +217,6 @@ map <leader>p "+p
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 
-noremap <leader>e :Ex<CR>
-noremap <leader>i :Ex<CR>
-noremap <leader>s :split<CR>
-noremap <leader>v :vsplit<CR>
-noremap <leader>q :q<CR>
 
 " Fast saving.
 nnoremap <leader>w :write<cr>
@@ -155,17 +225,6 @@ nnoremap <leader>q :bd<CR>
 " Disable upper/lower in visual mode
 vnoremap U <nop>
 vnoremap u <nop>
-
-" Moving between splits.
-nnoremap <silent> <c-j> <C-W><C-J>
-nnoremap <silent> <c-k> <C-W><C-K>
-nnoremap <silent> <c-l> <C-W><C-L>
-nnoremap <silent> <c-h> <C-W><C-H>
-
-nnoremap <silent> <leader>j <C-W><C-J>
-nnoremap <silent> <leader>k <C-W><C-K>
-nnoremap <silent> <leader>l <C-W><C-L>
-nnoremap <silent> <leader>h <C-W><C-H>
 
 " Long lines with wrapping move to other part/line.
 nnoremap j gj
@@ -181,21 +240,21 @@ map <left> <nop>
 map <right> <nop>
 
 " Toggle spell checking.
-"map <leader>ss :setlocal spell!<cr>
+"map <leader>sc :setlocal spell!<cr>
 
 " Statusline.
-set laststatus=2
+set laststatus=3
 
 " Format the statusline.
 set statusline=%m%r%h%w
-set statusline+=\ %{get(b:,'gitsigns_head','')}
-set statusline+=\ %f
+set statusline+=\ [%{get(b:,'gitsigns_head','')}]
+set statusline+=\ %F
 set statusline+=%=
 set statusline+=%{&fileencoding?&fileencoding:&encoding}
 set statusline+=\ %Y\ 
 "set statusline+=%=%(%{&ff}\ %{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\ %)
 "set statusline+=%(%2l:%2v\ %)
-set statusline+=%(%l:%v\ %)
+set statusline+=%(%l/%L:%v\ %)
 
 function! ToggleMovement(firstOp, thenOp)
     let pos = getpos('.')
@@ -211,15 +270,6 @@ nnoremap <silent> 0 :call ToggleMovement('^', '0')<CR>
 " How about G and gg
 nnoremap <silent> G :call ToggleMovement('G', 'gg')<CR>
 nnoremap <silent> gg :call ToggleMovement('gg', 'G')<CR>
-
-" Bind K to grep word under cursor.
-nnoremap <leader>f :Rg <C-R><C-W><CR>
-
-augroup GO_LSP
-  autocmd!
-  autocmd BufWritePre *.go :silent! lua vim.lsp.buf.formatting()
-  autocmd BufWritePre *.go :silent! lua org_imports(3000)
-augroup END
 
 augroup file_types
     autocmd!
@@ -246,21 +296,21 @@ augroup file_types
 augroup END
 
 
-hi StatusLine   ctermfg=233 ctermbg=72 cterm=bold guifg=#ffffff guibg=#4e4e4e gui=bold
-hi StatusLineNC ctermfg=250 ctermbg=236 cterm=none guifg=#b2b2b2 guibg=#3a3a3a gui=none
-hi StatusLineTerm   ctermfg=233 ctermbg=66 cterm=bold guifg=#ffffff guibg=#4e4e4e gui=bold
-hi StatusLineTermNC ctermfg=250 ctermbg=236 cterm=none guifg=#b2b2b2 guibg=#3a3a3a gui=none
-hi VertSplit    ctermfg=none  guifg=#3a3a3a ctermbg=none guibg=#3a3a3a cterm=none gui=none
-hi CursorLineNR cterm=bold ctermbg=none
-hi FoldColumn ctermbg=none ctermfg=none
-hi Visual ctermbg=236 ctermfg=none gui=none
+hi StatusLine       ctermfg=253  ctermbg=237 cterm=none guifg=#ffffff guibg=#4e4e4e gui=bold
+"hi StatusLineNC    ctermfg=250  ctermbg=236 cterm=none guifg=#b2b2b2 guibg=#3a3a3a gui=none
+hi StatusLineTerm   ctermfg=233  ctermbg=66 cterm=bold guifg=#ffffff guibg=#4e4e4e gui=bold
+hi StatusLineTermNC ctermfg=250  ctermbg=236 cterm=none guifg=#b2b2b2 guibg=#3a3a3a gui=none
+hi VertSplit        ctermfg=237  guifg=#3a3a3a ctermbg=none guibg=#3a3a3a cterm=none gui=none
+hi CursorLineNR     cterm=bold   ctermbg=none
+hi FoldColumn       ctermbg=none ctermfg=none
+hi Visual           ctermbg=236  ctermfg=none gui=none
 
 
 " Unset background color.
 hi Normal ctermbg=none
-hi NonText ctermbg=none ctermfg=0
+hi NonText ctermbg=none ctermfg=236
 hi LineNr ctermbg=none
-hi clear SignColumn
+"hi clear SignColumn
 
 highlight ExtraWhitespace ctermfg=darkgreen guifg=darkgreen
 " beginning Tab background
@@ -297,7 +347,7 @@ augroup ConflictColors
     autocmd BufEnter * call ConflictsHighlight()
 augroup END
 
-map <silent> <leader>no :FZF ~/doc/notes<cr>
+map <silent> <leader>no :FZF $NROOT<cr>
 
 iab nhead ---
 \<CR>title:
@@ -311,10 +361,6 @@ iab nhead ---
 iab -[ - [ ]
 
 " fzf
-map <leader>o :GitFiles<cr>
-"map <leader>m :Marks<cr>
-map <leader>b :Buffers<cr>
-map <leader>rg :Rg<cr>
 
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.3, 'yoffset': 1, 'border': 'horizontal' } }
 let g:fzf_preview_window = []
@@ -352,9 +398,9 @@ au FileType markdown nnoremap mh3 myI### <esc>`yllllo<esc>o<esc>
 au FileType markdown nnoremap mh4 myI#### <esc>`ylllllo<esc>o<esc>
 
 " markdown tasks
-au FileType markdown nnoremap tt myI- [ ] <esc>`yllllll
-au FileType markdown nnoremap td my0lllrx <esc>`y
-au FileType markdown nnoremap tu my0lllr  <esc>`y
+au FileType markdown nnoremap mt myI- [ ] <esc>`yllllll
+au FileType markdown nnoremap md my0lllrx <esc>`y
+au FileType markdown nnoremap mu my0lllr  <esc>`y
 
 " turn off syntax the underline coloring in the links is annoying [][some_link]
 au FileType markdown setlocal syntax=
@@ -362,33 +408,74 @@ au FileType markdown setlocal syntax=
 " Hide and format markdown elements like **bold**
 autocmd FileType markdown set conceallevel=2
 
-
 nnoremap <leader>r :Rg
 nnoremap ts i<C-R>=strftime("%Y-%m-%d %H:%M")<CR><Esc>
 
-tnoremap <Esc> <C-\><C-n>
+" tnoremap <Esc> <C-\><C-n>
 
 " To simulate |i_CTRL-R| in terminal-mode:
 " tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
-" To use `Ctrl+{h,j,k,l}` to navigate windows from any mode:
-tnoremap <C-h> <C-\><C-N><C-w>h
-tnoremap <C-j> <C-\><C-N><C-w>j
-tnoremap <C-k> <C-\><C-N><C-w>k
-tnoremap <C-l> <C-\><C-N><C-w>l
-inoremap <C-h> <C-\><C-N><C-w>h
-inoremap <C-j> <C-\><C-N><C-w>j
-inoremap <C-k> <C-\><C-N><C-w>k
-inoremap <C-l> <C-\><C-N><C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
 
-nnoremap tt i<C-R>=strftime("%Y-%m-%d %H:%M")<CR><Esc>
-
-nnoremap te :split term://zsh<CR>
-nnoremap vte :vsplit term://zsh<CR>
 
 ]])
+
+
+
+local status_ok, telescope = pcall(require, "telescope")
+if not status_ok then
+  return
+end
+
+local actions = require "telescope.actions"
+
+telescope.setup {
+  defaults = {
+
+    path_display = { "smart" },
+
+    mappings = {
+      i = {
+        ["<C-n>"] = actions.move_selection_next,
+        ["<C-p>"] = actions.move_selection_previous,
+
+        ["<C-c>"] = actions.close,
+        ["<esc>"] = actions.close,
+
+        ["<C-u>"] = actions.preview_scrolling_up,
+        ["<C-d>"] = actions.preview_scrolling_down,
+
+        ["<PageUp>"] = actions.results_scrolling_up,
+        ["<PageDown>"] = actions.results_scrolling_down,
+
+        ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+        ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+        ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+        ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["<C-l>"] = actions.complete_tag,
+        ["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
+      },
+
+      n = {
+        ["<esc>"] = actions.close,
+      },
+    },
+  },
+  pickers = {
+    -- Default configuration for builtin pickers goes here:
+    -- picker_name = {
+    --   picker_config_key = value,
+    --   ...
+    -- }
+    -- Now the picker_config_key will be applied every time you call this
+    -- builtin picker
+  },
+  extensions = {
+    -- Your extension configuration goes here:
+    -- extension_name = {
+    --   extension_config_key = value,
+    -- }
+    -- please take a look at the readme of the extension you want to configure
+  },
+}
 

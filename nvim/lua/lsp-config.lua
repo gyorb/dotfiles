@@ -70,76 +70,116 @@ local nvim_lsp = require('lspconfig')
 
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-nvim_lsp.gopls.setup{
-  capabilities = capabilities,
-}
-
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
-vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
+local buf_keymap = vim.api.nvim_buf_set_keymap
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local common_on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
   -- Mappings.
+  buf_keymap(bufnr, 'n', '<leader>de', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+  buf_keymap(bufnr, 'n', '<leader>dn', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_keymap(bufnr, 'n', '<leader>dp', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_keymap(bufnr, 'n', '<leader>dl', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>zz', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>zz', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>zz', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>zz', opts)
+  -- buf_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>zz', opts)
+  buf_keymap(bufnr, 'n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- buf_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>zz', opts)
+  -- buf_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  -- buf_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  --buf_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  -- buf_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_keymap(bufnr, 'n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  -- buf_keymap(bufnr, 'n', '<leader>s', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
+  -- buf_keymap(bufnr, 'n', '<leader>ws', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
+  --
+
+
+  -- null-ls does the formatting only not the other lsp servers for now
+  array = {"gopls", "pylsp"}
+  for key,value in ipairs(array)
+  do
+    if client.name == value then
+      client.resolved_capabilities.document_formatting = false
+    end
+  end
+
+  if client.resolved_capabilities.document_formatting then
+      vim.cmd([[
+      augroup LspFormatting
+          autocmd! * <buffer>
+          autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+      augroup END
+      ]])
+  end
 end
 
 nvim_lsp.gopls.setup{
   cmd = {'gopls'},
   -- for postfix snippets and analyzers
   capabilities = capabilities,
+  on_attach = common_on_attach,
+  flags = {
+    -- This will be the default in neovim 0.7+
+    debounce_text_changes = 150,
+  },
   settings = {
     gopls = {
+      -- gofumpt = true,
       experimentalPostfixCompletions = true,
       analyses = {
         unusedparams = true,
         shadow = true,
       },
-      staticcheck = true,
+      -- staticcheck = true,
     },
   },
-  on_attach = on_attach,
+}
+
+nvim_lsp.pylsp.setup{
+  cmd = {'pylsp'},
+  filetypes = {"python"},
+  -- for postfix snippets and analyzers
+  capabilities = capabilities,
+  on_attach = common_on_attach,
   flags = {
     -- This will be the default in neovim 0.7+
     debounce_text_changes = 150,
-  }
+  },
+  -- init_options = {
+  --   formatters = {
+  --     black = {
+  --       command = "black",
+  --       args = {"--quiet", "-"},
+  --       rootPatterns = {"pyproject.toml"},
+  --     },
+  --     formatFiletypes = {
+  --       python = {"black"}
+  --     },
+  --   },
+  -- },
 }
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { 'pylsp'}
+nvim_lsp.rls.setup {
+  on_attach = common_on_attach,
+  settings = {
+    rust = {
+      unstable_features = true,
+      build_on_save = false,
+      all_features = true,
+    },
+  },
+}
 
-for _, lsp in pairs(servers) do
-  require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = {
-      -- This will be the default in neovim 0.7+
-      debounce_text_changes = 150,
-    }
-  }
-end
 
 function org_imports(wait_ms)
   local params = vim.lsp.util.make_range_params()
@@ -156,3 +196,27 @@ function org_imports(wait_ms)
   end
 end
 
+local null_ls_ok, null_ls = pcall(require, "null-ls")
+if not null_ls_ok then
+  return
+end
+
+local formatting = null_ls.builtins.formatting
+local diagnostics = null_ls.builtins.diagnostics
+local code_actions = null_ls.builtins.code_actions
+
+null_ls.setup({
+    sources = {
+      formatting.black.with({ extra_args = { "--fast" } }),
+      formatting.isort,
+      -- diagnostics.flake8,
+      diagnostics.pylint,
+      diagnostics.golangci_lint,
+      formatting.gofumpt,
+      formatting.goimports,
+      -- formatting.golines,
+      -- formatting.jq,
+      code_actions.gitsigns,
+    },
+    on_attach = common_on_attach,
+})
