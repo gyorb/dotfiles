@@ -71,7 +71,7 @@ local options = {
 
   hidden = true,
   title = true,
-
+  completeopt = { "menu", "menuone", "noselect" }
 }
 
 for k, v in pairs(options) do
@@ -181,8 +181,8 @@ set backspace=indent,eol,start
 
 set showcmd
 
-set wildmenu
-set wildmode=list:longest,list:full
+"set wildmenu
+"set wildmode=list:longest,list:full
 
 " Search.
 set showmatch
